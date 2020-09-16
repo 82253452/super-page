@@ -49,6 +49,16 @@ export default {
       changeOrigin: true,
       pathRewrite: {'^': ''},
     },
+    '/trans/': {
+      target: 'https://mass.zhihuizhan.net/api',
+      changeOrigin: true,
+      pathRewrite: {'^': ''},
+    },
+    '/common/': {
+      target: 'https://mass.zhihuizhan.net/api',
+      changeOrigin: true,
+      pathRewrite: {'^': ''},
+    },
   },
   test: {
     '/api/': {

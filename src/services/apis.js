@@ -1,6 +1,7 @@
 import {POST} from "@/utils/Const";
 
 export const LOGIN = `/userLogin/login ${POST}`
+export const COMMON_TOKEN = `/common/qiniuToken`
 
 export const GET_USER_INFO = `/user/getUserInfo`
 

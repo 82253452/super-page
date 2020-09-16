@@ -20,6 +20,7 @@ export default function (title, columns, actionRef, confirm, initialValues = {})
     visible={on}
     onCancel={() => toggle(false)}
     footer={null}
+    width={1200}
   >
     <ProTable
       form={{initialValues: initialValue}}

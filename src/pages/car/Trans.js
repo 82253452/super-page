@@ -1,10 +1,10 @@
 import TablePro from "@/components/TablePro/TablePro";
-import {BANNER_ADD, BANNER_DEL, BANNER_PAGE, BANNER_UPDATE} from "@/services/apis";
+import {TRANS_COMPANY_ADD, TRANS_COMPANY_DEL, TRANS_COMPANY_PAGE, TRANS_COMPANY_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Button, Divider} from "antd";
 import React, {useRef} from "react";
-
+import QiniuImg from '@/components/Qiniu/upload'
 
 export default function () {
 
@@ -13,17 +13,56 @@ export default function () {
 
   const columns = [
     {
-      title: '标题',
-      dataIndex: 'title',
-    },
-    {
-      title: '图片',
-      dataIndex: 'src',
+      title: 'id',
+      dataIndex: 'id',
       hideInSearch: true,
     },
     {
-      title: '跳转地址',
-      dataIndex: 'href',
+      title: '名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '营业执照',
+      dataIndex: 'businessLicense',
+      hideInSearch: true,
+      hideInTable: true,
+      renderFormItem: () => <QiniuImg/>
+    },
+    {
+      title: '公司法人',
+      dataIndex: 'legalPerson',
+      hideInSearch: true,
+      hideInTable: true
+    },
+    {
+      title: '法人手机',
+      dataIndex: 'legalPhone',
+      hideInSearch: true,
+      hideInTable: true
+    },
+    {
+      title: '公司地址',
+      dataIndex: 'address',
+      hideInSearch: true,
+    },
+    {
+      title: '公司联系人',
+      dataIndex: 'contactsPerson',
+      hideInSearch: true,
+    },
+    {
+      title: '联系人手机',
+      dataIndex: 'contactsPhone',
+      hideInSearch: true,
+    },
+    {
+      title: '公司邮箱',
+      dataIndex: 'email',
+      hideInSearch: true,
+    },
+    {
+      title: '备注',
+      dataIndex: 'remark',
       hideInSearch: true,
     },
     {
@@ -35,23 +74,23 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => Request(BANNER_DEL, {id})}>删除</a>
+          <a onClick={() => Request(TRANS_COMPANY_DEL, {id})}>删除</a>
         </>
       ),
     },
   ]
 
 
-  const [Modal, toggle] = useVisiableForm('新建', columns, actionRef, values => {
-    actionRef.current.reload()
+  const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
     if (values.id) {
-       Request(BANNER_UPDATE, values)
+      await Request(TRANS_COMPANY_UPDATE, values)
     } else {
-       Request(BANNER_ADD, values)
+      await Request(TRANS_COMPANY_ADD, values)
     }
+    actionRef.current.reload()
   })
 
-  return <TablePro ref={actionRef} title='banner列表' url={BANNER_PAGE} columns={columns} toolBarRender={() => [
+  return <TablePro ref={actionRef} title='列表' url={TRANS_COMPANY_PAGE} columns={columns} toolBarRender={() => [
     <Button type="primary" onClick={() => toggle()}>
       新建
     </Button>

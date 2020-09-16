@@ -8,6 +8,7 @@ const {REACT_APP_ENV} = process.env;
 export default defineConfig({
   hash: true,
   antd: {},
+  history: {type: 'hash'},
   dva: {
     hmr: true,
   },
@@ -55,6 +56,7 @@ export default defineConfig({
       path: '/open',
       name: '开放平台',
       icon: 'smile',
+      access: 'admin',
       routes: [
         {
           name: '小程序管理',
@@ -86,24 +88,28 @@ export default defineConfig({
           icon: 'smile',
           path: '/car/trans',
           component: './car/Trans',
+          access: 'company',
         },
         {
           name: '车辆管理',
           icon: 'smile',
           path: '/car/car',
           component: './car/CarTypes',
+          access: 'carManager',
         },
         {
           name: '轮播管理',
           icon: 'smile',
           path: '/car/banner',
           component: './car/Banners',
+          access: 'admin',
         },
         {
           name: '订单管理',
           icon: 'smile',
           path: '/car/order',
           component: './car/Order',
+          access: 'orderManager',
         },
       ]
     },

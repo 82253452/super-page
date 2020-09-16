@@ -1,21 +1,13 @@
 import React from 'react';
-import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
-import styles from './Welcome.less';
+import {PageContainer} from '@ant-design/pro-layout';
+import {Alert, Card, Timeline} from 'antd';
 
-const CodePreview: React.FC<{}> = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
 
 export default (): React.ReactNode => (
   <PageContainer>
     <Card>
       <Alert
-        message="更快更强的重型组件，已经发布。"
+        message="后台更新计划"
         type="success"
         showIcon
         banner
@@ -24,25 +16,30 @@ export default (): React.ReactNode => (
           marginBottom: 24,
         }}
       />
-      <Typography.Text strong>
-        高级表格{' '}
-        <a href="https://protable.ant.design/" rel="noopener noreferrer" target="__blank">
-          欢迎使用
-        </a>
-      </Typography.Text>
-      <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-      <Typography.Text
-        strong
+      <Timeline>
+        <Timeline.Item>2015-09-16  用户权限-车辆管理 </Timeline.Item>
+        <Timeline.Item>2015-09-17  公司注册</Timeline.Item>
+        <Timeline.Item>2015-09-18  个人货主注册后台</Timeline.Item>
+        <Timeline.Item>2015-09-19  订单流程后台</Timeline.Item>
+      </Timeline>,
+    </Card>
+    <Card>
+      <Alert
+        message="小程序更新计划"
+        type="success"
+        showIcon
+        banner
         style={{
-          marginBottom: 12,
+          margin: -12,
+          marginBottom: 24,
         }}
-      >
-        高级布局{' '}
-        <a href="https://prolayout.ant.design/" rel="noopener noreferrer" target="__blank">
-          欢迎使用
-        </a>
-      </Typography.Text>
-      <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
+      />
+      <Timeline>
+        <Timeline.Item>2015-09-16 用户权限</Timeline.Item>
+        <Timeline.Item>2015-09-17 公司注册后台</Timeline.Item>
+        <Timeline.Item>2015-09-18 个人货主注册 </Timeline.Item>
+        <Timeline.Item>2015-09-19 订单流程</Timeline.Item>
+      </Timeline>,
     </Card>
   </PageContainer>
 );
