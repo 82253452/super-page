@@ -1,0 +1,32 @@
+import {POST} from "@/utils/Const";
+
+export const LOGIN = `/userLogin/login ${POST}`
+
+export const GET_USER_INFO = `/user/getUserInfo`
+
+
+export const ORDER_PAGE = `/order/list`
+
+export const CAR_TYPE_PAGE = `/car/list`
+
+export const BANNER_PAGE = `/banner/list`
+export const BANNER_ADD = `/banner/ POST`
+export const BANNER_UPDATE = `/banner/ PUT`
+export const BANNER_DEL = `/banner/ DELETE`
+
+export const MINI_APP_PAGE = `/busiApp/selectByPage`
+export const BUSI_APP_TEMPLATES = `/busiApp/gettemplatelist`
+export const BUSI_APP_DRAFT_TEMPLATE = `/busiApp/addtotemplate`
+export const BUSI_APP_TRAFTS = `/busiApp/gettemplatedraftlist`
+export const BUSI_APP_DEL_TEMPLATE = `/busiApp/deleteTemplate`
+export const BUSI_APP_QR_CODE = `/busiApp/getTestQrcode`
+
+
+export const MINI_APP_TRAFTS = `/mini/getTrafts`
+export const MINI_APP_TEMPLATES = `/mini/getTemplates`
+export const MINI_APP_UPLOAD = `/mini/uploadApp`
+
+export const TRANS_COMPANY_PAGE = `/trans/list`
+export const TRANS_COMPANY_ADD = `/trans/ POST`
+export const TRANS_COMPANY_UPDATE = `/trans/ PUT`
+export const TRANS_COMPANY_DEL = `/trans/ DELETE`
