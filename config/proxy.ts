@@ -59,6 +59,11 @@ export default {
       changeOrigin: true,
       pathRewrite: {'^': ''},
     },
+    '/transCompanyUser/': {
+      target: 'https://mass.zhihuizhan.net/api',
+      changeOrigin: true,
+      pathRewrite: {'^': ''},
+    },
   },
   test: {
     '/api/': {

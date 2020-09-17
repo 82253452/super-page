@@ -79,23 +79,30 @@ export default defineConfig({
       ]
     },
     {
-      name: '汽车管理',
+      name: 'Super Car',
       icon: 'smile',
       path: '/car',
       routes: [
+        {
+          name: '物流人员管理',
+          icon: 'smile',
+          path: '/car/transUser',
+          component: './car/TransCompanyUser',
+          access: 'transManager',
+        },
         {
           name: '物流公司管理',
           icon: 'smile',
           path: '/car/trans',
           component: './car/Trans',
-          access: 'company',
+          access: 'admin',
         },
         {
           name: '车辆管理',
           icon: 'smile',
           path: '/car/car',
           component: './car/CarTypes',
-          access: 'carManager',
+          access: 'admin',
         },
         {
           name: '轮播管理',

@@ -49,8 +49,8 @@ export function Request(url, data) {
   url = urlArray[0]
   const method = urlArray[1] || GET
   if (method === GET) {
-    return request(url, {method, params: data})
+    return request(url, {method, params: data}).then(res => res.data)
   } else {
-    return request(url, {method, data})
+    return request(url, {method, data}).then(res => res.data)
   }
 }

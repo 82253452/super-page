@@ -6,7 +6,7 @@ export const COMMON_TOKEN = `/common/qiniuToken`
 export const GET_USER_INFO = `/user/getUserInfo`
 
 
-export const ORDER_PAGE = `/order/list`
+export const ORDER_PAGE = `/order/admin/list`
 
 export const CAR_TYPE_PAGE = `/car/list`
 
@@ -28,6 +28,13 @@ export const MINI_APP_TEMPLATES = `/mini/getTemplates`
 export const MINI_APP_UPLOAD = `/mini/uploadApp`
 
 export const TRANS_COMPANY_PAGE = `/trans/list`
+export const TRANS_COMPANY_DETAIL = `/trans/detail`
 export const TRANS_COMPANY_ADD = `/trans/ POST`
 export const TRANS_COMPANY_UPDATE = `/trans/ PUT`
 export const TRANS_COMPANY_DEL = `/trans/ DELETE`
+
+
+export const TRANS_COMPANY_USER_PAGE = `/transCompanyUser/admin/list`
+export const TRANS_COMPANY_USER_CHECK_USER = `/transCompanyUser/checkUser`
+export const TRANS_COMPANY_USER_DEL = (id) => `/transCompanyUser/${id} DELETE`
+

@@ -96,7 +96,6 @@ const errorHandler = (error: ResponseError) => {
 
 const middlewares = [async (ctx, next) => {
   const {req} = ctx
-  console.log(process)
   req.url = process.env.DOMAIN ? `${process.env.DOMAIN}${req.url}` : req.url
   req.options.headers = {...req.options.headers, 'X-Token': localStorage.getItem(TOKEN)}
   await next();
@@ -111,7 +110,6 @@ const middlewares = [async (ctx, next) => {
     });
     return
   }
-  ctx.res = ctx.res.data
 }]
 
 

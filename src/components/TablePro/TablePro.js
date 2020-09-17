@@ -1,10 +1,10 @@
 import {Request} from "@/utils/utils";
 import {PageContainer} from "@ant-design/pro-layout";
 import ProTable from "@ant-design/pro-table";
-import React, {useRef} from "react";
+import React from "react";
 
 
-export default React.forwardRef(({title, url, formRef, columns, toolBarRender, children}, ref) => {
+export default React.forwardRef(({title, url, formRef, columns, toolBarRender, children,tableExtraRender}, ref) => {
 
   async function queryData(params, sorter, filter) {
     return Request(url, {...params, status: 0}).then(res => ({
@@ -21,6 +21,7 @@ export default React.forwardRef(({title, url, formRef, columns, toolBarRender, c
       request={queryData}
       columns={columns}
       toolBarRender={toolBarRender}
+      tableExtraRender={tableExtraRender}
     />
     {children}
   </PageContainer>
