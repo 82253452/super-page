@@ -53,11 +53,16 @@ export default function () {
             <a onClick={() => checkUser(id, 1)}>审核通过</a>
           </> : <></>}
           <Divider type="vertical"/>
-          <a onClick={() => Request(TRANS_COMPANY_USER_DEL(id))}>删除</a>
+          <a onClick={() => del(id)}>删除</a>
         </>
       ),
     },
   ];
+
+  async function del(id) {
+    await Request(TRANS_COMPANY_USER_DEL(id))
+    actionRef.current.reload()
+  }
 
   function checkUser(id, status) {
     Request(TRANS_COMPANY_USER_CHECK_USER, {id, status})
@@ -65,7 +70,7 @@ export default function () {
 
 
   return <TablePro ref={actionRef} title='列表' url={TRANS_COMPANY_USER_PAGE} columns={columns}
-                   tableExtraRender={() => <Card>
+                   tableExtraRender={() => data ? <Card>
                      <Descriptions>
                        <Descriptions.Item label="物流公司">{data.name}</Descriptions.Item>
                        <Descriptions.Item label="地址">{data.address}</Descriptions.Item>
@@ -74,5 +79,5 @@ export default function () {
                        <Descriptions.Item label="负责人">{data.legalPerson}</Descriptions.Item>
                        <Descriptions.Item label="负责人联系方式">{data.legalPhone}</Descriptions.Item>
                      </Descriptions>
-                   </Card>}/>
+                   </Card> : <></>}/>
 }

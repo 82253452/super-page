@@ -98,7 +98,7 @@ export default defineConfig({
           access: 'admin',
         },
         {
-          name: '车辆管理',
+          name: '车型管理',
           icon: 'smile',
           path: '/car/car',
           component: './car/CarTypes',

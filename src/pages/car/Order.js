@@ -35,15 +35,18 @@ export default function () {
     },
     {
       title: '操作',
-      dataIndex: 'option',
-      valueType: 'option',
-      render: () => (
+      dataIndex: 'id',
+      render: id => (
         <>
-          <a href="">删除</a>
+          <a onClick={() => del(id)}>删除</a>
         </>
       ),
     },
   ];
+
+  async function del() {
+
+  }
 
   async function queryData(params, sorter, filter) {
     return Request(ORDER_PAGE, {...params, status: 0}).then(res => ({

@@ -1,7 +1,15 @@
 import TablePro from "@/components/TablePro/TablePro";
-import {CAR_TYPE_PAGE} from "@/services/apis";
+import {
+  BANNER_ADD,
+  BANNER_UPDATE, CAR_TYPE_ADD,
+  CAR_TYPE_DEL,
+  CAR_TYPE_PAGE,
+  CAR_TYPE_UPDATE,
+  TRANS_COMPANY_DEL
+} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
-import {Button, Divider} from "antd";
+import {Request} from "@/utils/utils";
+import {Button, Divider, Input} from "antd";
 import React, {useRef} from "react";
 
 
@@ -12,9 +20,15 @@ export default function () {
 
   const columns = [
     {
+      title: 'id',
+      dataIndex: 'id',
+      hideInSearch: true,
+      hideInTable: true,
+      formItemProps: {hidden: true}
+    },
+    {
       title: '名称',
       dataIndex: 'title',
-      form: () => <div>123312</div>,
     },
     {
       title: '类型',
@@ -42,21 +56,32 @@ export default function () {
     },
     {
       title: '操作',
-      dataIndex: 'option',
-      valueType: 'option',
-      render: (_, row) => (
+      dataIndex: 'id',
+      hideInForm: true,
+      hideInSearch: true,
+      render: (id, row) => (
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => toggle(row)}>删除</a>
+          <a onClick={() => del(id)}>删除</a>
         </>
       ),
     },
   ]
 
+  async function del(id) {
+    await Request(CAR_TYPE_DEL(id))
+    actionRef.current.reload()
+  }
 
-  const [CarTypes, toggle] = useVisiableForm('新建', columns, actionRef, values => {
-    console.log(values)
+
+  const [CarTypes, toggle] = useVisiableForm('新建', columns, actionRef, async values => {
+    if (values.id) {
+      await Request(CAR_TYPE_UPDATE, values)
+    } else {
+      await Request(CAR_TYPE_ADD, values)
+    }
+    actionRef.current.reload()
   })
 
   return <TablePro ref={actionRef} title='车型列表' url={CAR_TYPE_PAGE} columns={columns} toolBarRender={() => [
@@ -66,4 +91,8 @@ export default function () {
   ]}>
     <CarTypes/>
   </TablePro>
+}
+
+function Hidden({value}) {
+  return <Input value={value} hidden={true}/>
 }

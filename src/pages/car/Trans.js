@@ -1,5 +1,11 @@
 import TablePro from "@/components/TablePro/TablePro";
-import {TRANS_COMPANY_ADD, TRANS_COMPANY_DEL, TRANS_COMPANY_PAGE, TRANS_COMPANY_UPDATE} from "@/services/apis";
+import {
+  BANNER_DEL,
+  TRANS_COMPANY_ADD,
+  TRANS_COMPANY_DEL,
+  TRANS_COMPANY_PAGE,
+  TRANS_COMPANY_UPDATE
+} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Button, Divider} from "antd";
@@ -16,6 +22,8 @@ export default function () {
       title: 'id',
       dataIndex: 'id',
       hideInSearch: true,
+      hideInTable: true,
+      formItemProps: {hidden: true}
     },
     {
       title: '名称',
@@ -74,11 +82,16 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => Request(TRANS_COMPANY_DEL, {id})}>删除</a>
+          <a onClick={() => del(id)}>删除</a>
         </>
       ),
     },
   ]
+
+  async function del(id) {
+    await Request(TRANS_COMPANY_DEL(id))
+    actionRef.current.reload()
+  }
 
 
   const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {

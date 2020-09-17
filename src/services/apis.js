@@ -9,11 +9,14 @@ export const GET_USER_INFO = `/user/getUserInfo`
 export const ORDER_PAGE = `/order/admin/list`
 
 export const CAR_TYPE_PAGE = `/car/list`
+export const CAR_TYPE_ADD = `/car/ POST`
+export const CAR_TYPE_UPDATE = `/car/ PUT`
+export const CAR_TYPE_DEL = (id) => `/car/${id} DELETE`
 
 export const BANNER_PAGE = `/banner/list`
 export const BANNER_ADD = `/banner/ POST`
 export const BANNER_UPDATE = `/banner/ PUT`
-export const BANNER_DEL = `/banner/ DELETE`
+export const BANNER_DEL = (id) => `/banner/${id} DELETE`
 
 export const MINI_APP_PAGE = `/busiApp/selectByPage`
 export const BUSI_APP_TEMPLATES = `/busiApp/gettemplatelist`
@@ -31,7 +34,7 @@ export const TRANS_COMPANY_PAGE = `/trans/list`
 export const TRANS_COMPANY_DETAIL = `/trans/detail`
 export const TRANS_COMPANY_ADD = `/trans/ POST`
 export const TRANS_COMPANY_UPDATE = `/trans/ PUT`
-export const TRANS_COMPANY_DEL = `/trans/ DELETE`
+export const TRANS_COMPANY_DEL = (id) => `/trans/${id} DELETE`
 
 
 export const TRANS_COMPANY_USER_PAGE = `/transCompanyUser/admin/list`

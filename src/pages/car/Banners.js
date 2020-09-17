@@ -13,6 +13,13 @@ export default function () {
 
   const columns = [
     {
+      title: 'id',
+      dataIndex: 'id',
+      hideInSearch: true,
+      hideInTable: true,
+      formItemProps: {hidden: true}
+    },
+    {
       title: '标题',
       dataIndex: 'title',
     },
@@ -35,20 +42,26 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => Request(BANNER_DEL, {id})}>删除</a>
+          <a onClick={() => del(id)}>删除</a>
         </>
       ),
     },
   ]
 
-
-  const [Modal, toggle] = useVisiableForm('新建', columns, actionRef, values => {
+  async function del(id) {
+    await Request(BANNER_DEL(id))
     actionRef.current.reload()
+  }
+
+
+  const [Modal, toggle] = useVisiableForm('新建', columns, actionRef, async values => {
     if (values.id) {
-       Request(BANNER_UPDATE, values)
+      await Request(BANNER_UPDATE, values)
     } else {
-       Request(BANNER_ADD, values)
+      await Request(BANNER_ADD, values)
     }
+    actionRef.current.reload()
+
   })
 
   return <TablePro ref={actionRef} title='banner列表' url={BANNER_PAGE} columns={columns} toolBarRender={() => [
