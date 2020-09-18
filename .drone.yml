@@ -1,5 +1,5 @@
 kind: pipeline
-name: super-page
+name: super-car
 
 environment:
   DOMAIN: zhihuizhan.net
