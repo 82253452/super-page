@@ -47,4 +47,6 @@ export const COMPANY_DETAIL = `/company/detail`
 export const COMPANY_ADD = `/company/ POST`
 export const COMPANY_UPDATE = `/company/ PUT`
 export const COMPANY_DEL = (id) => `/company/${id} DELETE`
+export const COMPANY_CHECK = `/company/checkCompany`
+
 

@@ -1,6 +1,6 @@
 import QiniuImg from '@/components/Qiniu/upload'
 import TablePro from "@/components/TablePro/TablePro";
-import {COMPANY_ADD, COMPANY_DEL, COMPANY_PAGE, COMPANY_UPDATE} from "@/services/apis";
+import {COMPANY_ADD, COMPANY_CHECK, COMPANY_DEL, COMPANY_PAGE, COMPANY_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Divider} from "antd";
@@ -86,7 +86,18 @@ export default function () {
       hideInSearch: true,
       render: (id, row) => (
         <>
+          <Divider type="vertical"/>
           <a onClick={() => toggle(row)}>更新</a>
+          {row.status === 0 ? <>
+            <Divider type="vertical"/>
+            <a onClick={() => check(id, 2)}>拒绝通过</a>
+            <Divider type="vertical"/>
+            <a onClick={() => check(id, 1)}>审核通过</a>
+          </> : <></>}
+          {row.status === 2 ? <>
+            <Divider type="vertical"/>
+            <a onClick={() => check(id, 1)}>审核通过</a>
+          </> : <></>}
           <Divider type="vertical"/>
           <a onClick={() => del(id)}>删除</a>
         </>
@@ -99,6 +110,10 @@ export default function () {
     actionRef.current.reload()
   }
 
+  async function check(id, status) {
+    await Request(COMPANY_CHECK, {id, status})
+    actionRef.current.reload()
+  }
 
   const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
     if (values.id) {

@@ -1,3 +1,4 @@
+import QiniuImg from "@/components/Qiniu/upload";
 import TablePro from "@/components/TablePro/TablePro";
 import {BANNER_ADD, BANNER_DEL, BANNER_PAGE, BANNER_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
@@ -27,6 +28,7 @@ export default function () {
       title: '图片',
       dataIndex: 'src',
       hideInSearch: true,
+      renderFormItem: () => <QiniuImg/>
     },
     {
       title: '跳转地址',

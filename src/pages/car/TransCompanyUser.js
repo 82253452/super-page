@@ -48,7 +48,11 @@ export default function () {
           <a onClick={() => checkUser(row)}>派单</a>
           {row.status === 0 ? <>
             <Divider type="vertical"/>
-            <a onClick={() => checkUser(id, 2)}>不通过</a>
+            <a onClick={() => checkUser(id, 2)}>拒绝通过</a>
+            <Divider type="vertical"/>
+            <a onClick={() => checkUser(id, 1)}>审核通过</a>
+          </> : <></>}
+          {row.status === 2 ? <>
             <Divider type="vertical"/>
             <a onClick={() => checkUser(id, 1)}>审核通过</a>
           </> : <></>}
@@ -64,8 +68,9 @@ export default function () {
     actionRef.current.reload()
   }
 
-  function checkUser(id, status) {
-    Request(TRANS_COMPANY_USER_CHECK_USER, {id, status})
+  async function checkUser(id, status) {
+    await Request(TRANS_COMPANY_USER_CHECK_USER, {id, status})
+    actionRef.current.reload()
   }
 
 
