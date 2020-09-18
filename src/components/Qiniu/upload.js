@@ -1,4 +1,5 @@
 import {COMMON_TOKEN} from "@/services/apis";
+import useModal from "@/utils/hooks/useModal";
 import {Request} from "@/utils/utils";
 import PlusOutlined from "@ant-design/icons";
 import {Modal, Upload} from 'antd';
@@ -13,63 +14,45 @@ function getBase64(file) {
   });
 }
 
-const baseUrl = 'http://images.y456.cn/';
+const baseUrl = 'http://img.zhihuizhan.net';
 
-export default function ({single, value, onChange}) {
-  const [previewVisible, setPreviewVisible] = useState(false);
+export default function ({max = 1, value, onChange}) {
   const [previewImage, setPreviewImage] = useState('');
-  const [img, setImg] = useState('');
-  const [fileLists, setFileLists] = useState([]);
+  const [fileLists, setFileLists] = useState(value ? value.split(',').map((url, uid) => ({
+    url,
+    uid,
+    status: 'done',
+    name: uid,
+  })) : []);
   const [uploaData, setUploaData] = useState({});
   const [headers, setHeaders] = useState({});
-  useEffect(() => {
-    single
-      ? setImg(value)
-      : setFileLists(value ? value.split(',').map((url, uid) => ({url, uid})) : []);
-  }, [value]);
 
-  const handleCancel = () => setPreviewVisible(false);
+  const [Modal, toggle] = useModal()
+
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
     setPreviewImage(file.url || file.preview);
-    setPreviewVisible(true);
+    toggle();
   };
   const handleChange = ({file, fileList}) => {
-    file.response && console.log(`${baseUrl}${file.response.key}`)
-    if (single) {
-      file.response && onChange && onChange(`${baseUrl}${file.response.key}`);
-      file.response && setImg(`${baseUrl}${file.response.key}`);
-    } else {
-      file.response &&
-      onChange &&
-      onChange(`${value ? `${value},` : ''}${baseUrl}${file.response.key}`);
-    }
-    setFileLists([...fileList]);
+    file.response && onChange && onChange(`${value ? `${value},` : ''}${baseUrl}/${file.response.key}`);
+    setFileLists(fileList);
   };
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined/>
-      <div className="ant-upload-text">Upload</div>
-    </div>
-  );
-
-  async function beforeUpload(file) {
-    await Request(COMMON_TOKEN)
-      .then(data => {
-        setUploaData({token: data.uptoken});
-        setHeaders({Authorization: `UpToken ${data.uptoken}`});
-      });
+  async function beforeUpload() {
+    const token = await Request(COMMON_TOKEN)
+    setUploaData({token});
+    setHeaders({Authorization: `UpToken ${token}`});
   }
+
 
   return (
     <div className="clearfix">
       <Upload
-        showUploadList={!single}
         headers={headers}
-        action="//up-z1.qiniup.com/"
+        action="https://upload-z2.qiniup.com"
         listType="picture-card"
         fileList={fileLists}
         data={uploaData}
@@ -77,10 +60,12 @@ export default function ({single, value, onChange}) {
         onPreview={handlePreview}
         onChange={handleChange}
       >
-        {!!img && <img src={img} alt="avatar" style={{width: '100%'}}/>}
-        {!img && uploadButton}
+        {fileLists.length < max && <div>
+          <PlusOutlined/>
+          <div style={{marginTop: 8}}>Upload</div>
+        </div>}
       </Upload>
-      <Modal visible={previewVisible} footer={null} onCancel={handleCancel}>
+      <Modal>
         <img alt="example" style={{width: '100%'}} src={previewImage}/>
       </Modal>
     </div>

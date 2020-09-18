@@ -1,6 +1,6 @@
 export default {
-  DOMAIN: 'https://mass.zhihuizhan.net/api',
   define: {
-    DOMAIN: 'https://mass.zhihuizhan.net/api'
+    'process.env.DOMAIN': "http://localhost:8080"
+    // 'process.env.DOMAIN': "https://mass.zhihuizhan.net/api"
   }
 };

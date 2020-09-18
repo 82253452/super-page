@@ -13,7 +13,7 @@ export default defineConfig({
     hmr: true,
   },
   define: {
-    DOMAIN: 'https://mass.zhihuizhan.net/api'
+    'process.env.DOMAIN': 'http://localhost:8080'
   },
   layout: {
     name: 'Super Car',
@@ -95,6 +95,13 @@ export default defineConfig({
           icon: 'smile',
           path: '/car/trans',
           component: './car/Trans',
+          access: 'admin',
+        },
+        {
+          name: '企业管理',
+          icon: 'smile',
+          path: '/car/company',
+          component: './car/Company',
           access: 'admin',
         },
         {

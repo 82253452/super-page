@@ -7,63 +7,7 @@
  */
 export default {
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/userLogin/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    }, '/user/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    }, '/busiAppPage/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    }, '/busiApp/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/order/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/car/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/banner/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/mini/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/trans/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/common/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
-    '/transCompanyUser/': {
-      target: 'https://mass.zhihuizhan.net/api',
-      changeOrigin: true,
-      pathRewrite: {'^': ''},
-    },
+
   },
   test: {
     '/api/': {

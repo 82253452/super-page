@@ -1,7 +1,7 @@
 import {POST} from "@/utils/Const";
 
 export const LOGIN = `/userLogin/login ${POST}`
-export const COMMON_TOKEN = `/common/qiniuToken`
+export const COMMON_TOKEN = `/common/ypQiniuToken`
 
 export const GET_USER_INFO = `/user/getUserInfo`
 
@@ -40,4 +40,11 @@ export const TRANS_COMPANY_DEL = (id) => `/trans/${id} DELETE`
 export const TRANS_COMPANY_USER_PAGE = `/transCompanyUser/admin/list`
 export const TRANS_COMPANY_USER_CHECK_USER = `/transCompanyUser/checkUser`
 export const TRANS_COMPANY_USER_DEL = (id) => `/transCompanyUser/${id} DELETE`
+
+
+export const COMPANY_PAGE = `/company/list`
+export const COMPANY_DETAIL = `/company/detail`
+export const COMPANY_ADD = `/company/ POST`
+export const COMPANY_UPDATE = `/company/ PUT`
+export const COMPANY_DEL = (id) => `/company/${id} DELETE`
 
