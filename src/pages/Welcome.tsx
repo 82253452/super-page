@@ -19,7 +19,7 @@ export default (): React.ReactNode => (
       <Timeline>
         <Timeline.Item>2015-09-16 用户权限-车辆管理 </Timeline.Item>
         <Timeline.Item>2015-09-17 物流公司下人员管理-审核</Timeline.Item>
-        <Timeline.Item>2015-09-18 个人货主注册后台</Timeline.Item>
+        <Timeline.Item>2015-09-18 物流公司审核-企业认证</Timeline.Item>
         <Timeline.Item>2015-09-19 订单流程后台</Timeline.Item>
       </Timeline>,
     </Card>
@@ -37,7 +37,7 @@ export default (): React.ReactNode => (
       <Timeline>
         <Timeline.Item>2015-09-16 用户权限</Timeline.Item>
         <Timeline.Item>2015-09-17 物流公司-认证公司</Timeline.Item>
-        <Timeline.Item>2015-09-18 个人货主注册 </Timeline.Item>
+        <Timeline.Item>2015-09-18 物流公司审核-企业认证 </Timeline.Item>
         <Timeline.Item>2015-09-19 订单流程</Timeline.Item>
       </Timeline>,
     </Card>

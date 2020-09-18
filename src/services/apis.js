@@ -7,6 +7,8 @@ export const GET_USER_INFO = `/user/getUserInfo`
 
 
 export const ORDER_PAGE = `/order/admin/list`
+export const ORDER_UPDATE = `/order/ PUT`
+export const ORDER_DEL = (id) => `/order/${id} DELETE`
 
 export const CAR_TYPE_PAGE = `/car/list`
 export const CAR_TYPE_ADD = `/car/ POST`

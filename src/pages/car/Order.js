@@ -1,12 +1,13 @@
-import {ORDER_PAGE} from "@/services/apis";
+import TablePro from "@/components/TablePro/TablePro";
+import {ORDER_DEL, ORDER_PAGE, ORDER_UPDATE} from "@/services/apis";
+import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
-import {PageContainer} from "@ant-design/pro-layout";
-import ProTable from "@ant-design/pro-table";
-import {Avatar} from "antd";
-import React from "react";
+import React, {useRef} from "react";
 
 
 export default function () {
+
+  const actionRef = useRef()
 
   const columns = [
     {
@@ -30,7 +31,14 @@ export default function () {
       hideInForm: true,
       hideInSearch: true,
       valueEnum: {
-        0: '待接单'
+        0: '待派单',
+        1: '待派送',
+        2: '派送中',
+        3: '待确认',
+        4: '已完结',
+        5: '派送取消',
+        6: '派送异常',
+        7: '派送超时',
       }
     },
     {
@@ -44,23 +52,21 @@ export default function () {
     },
   ];
 
-  async function del() {
-
+  async function del(id) {
+    await Request(ORDER_DEL(id))
+    actionRef.current.reload()
   }
 
-  async function queryData(params, sorter, filter) {
-    return Request(ORDER_PAGE, {...params, status: 0}).then(res => ({
-      data: res.list,
-      success: true,
-      total: res.total
-    }))
-  }
+  const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
+    if (values.id) {
+      await Request(ORDER_UPDATE, values)
+    }
+    actionRef.current.reload()
+  })
 
-  return <PageContainer>
-    <ProTable
-      headerTitle="订单列表"
-      request={queryData}
-      columns={columns}
-    />
-  </PageContainer>
+
+  return <TablePro ref={actionRef} title='列表' url={ORDER_PAGE} columns={columns}>
+    <Modal/>
+  </TablePro>
+
 }
