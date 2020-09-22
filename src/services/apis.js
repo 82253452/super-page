@@ -1,6 +1,6 @@
 import {POST} from "@/utils/Const";
 
-export const LOGIN = `/userLogin/login ${POST}`
+export const LOGIN = `/userLogin/userLogin ${POST}`
 export const COMMON_TOKEN = `/common/ypQiniuToken`
 
 export const GET_USER_INFO = `/user/getUserInfo`

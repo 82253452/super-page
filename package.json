@@ -59,6 +59,7 @@
     "path-to-regexp": "2.4.0",
     "qs": "^6.9.0",
     "react": "^16.8.6",
+    "react-charts": "^2.0.0-beta.7",
     "react-dom": "^16.8.6",
     "react-helmet-async": "^1.0.4",
     "react-query": "^2.18.0",

@@ -15,8 +15,8 @@ export async function getInitialState() {
   if (history.location.pathname !== '/user/login') {
     try {
       const currentUser = await Request(GET_USER_INFO)
-      const userInfo = currentUser.user.userInfo
-      userInfo.access = currentUser.user.roles.join('|')
+      const userInfo = currentUser.userInfo
+      userInfo.access = currentUser.roles.join('|')
       return {
         currentUser: userInfo,
         settings: defaultSettings,

@@ -24,8 +24,8 @@ export default function () {
 
   const columns = [
     {
-      title: '用户名',
-      dataIndex: 'nickname',
+      title: '姓名',
+      dataIndex: 'name',
     },
     {
       title: '头像',
@@ -36,6 +36,46 @@ export default function () {
     {
       title: '联系方式',
       dataIndex: 'phone',
+      hideInSearch: true,
+    },
+    {
+      title: '车牌号',
+      dataIndex: 'carNumber',
+      hideInSearch: true,
+    },
+    {
+      title: '车型',
+      dataIndex: 'carModel',
+      hideInSearch: true,
+    },
+    {
+      title: '车辆图片',
+      dataIndex: 'carImg',
+      hideInSearch: true,
+    },
+    {
+      title: '用户照片',
+      dataIndex: 'userImg',
+      hideInSearch: true,
+    },
+    {
+      title: '驾龄',
+      dataIndex: 'drivingExperience',
+      hideInSearch: true,
+    },
+    {
+      title: '行驶证',
+      dataIndex: 'drivingLicense',
+      hideInSearch: true,
+    },
+    {
+      title: '驾驶证',
+      dataIndex: 'driversLicense',
+      hideInSearch: true,
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
       hideInSearch: true,
     },
     {

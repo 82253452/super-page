@@ -84,7 +84,7 @@ export default defineConfig({
       path: '/car',
       routes: [
         {
-          name: '物流人员管理',
+          name: '物流司机管理',
           icon: 'smile',
           path: '/car/transUser',
           component: './car/TransCompanyUser',

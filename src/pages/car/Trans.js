@@ -1,16 +1,11 @@
+import QiniuImg from '@/components/Qiniu/upload'
 import TablePro from "@/components/TablePro/TablePro";
-import {
-  BANNER_DEL,
-  TRANS_COMPANY_ADD,
-  TRANS_COMPANY_DEL,
-  TRANS_COMPANY_PAGE,
-  TRANS_COMPANY_UPDATE
-} from "@/services/apis";
+import {TRANS_COMPANY_ADD, TRANS_COMPANY_DEL, TRANS_COMPANY_PAGE, TRANS_COMPANY_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
+import {Gen} from "@/utils/IdToCode";
 import {Request} from "@/utils/utils";
 import {Button, Divider} from "antd";
 import React, {useRef} from "react";
-import QiniuImg from '@/components/Qiniu/upload'
 
 export default function () {
 
@@ -19,11 +14,11 @@ export default function () {
 
   const columns = [
     {
-      title: 'id',
+      title: '物流代码',
       dataIndex: 'id',
       hideInSearch: true,
-      hideInTable: true,
-      formItemProps: {hidden: true}
+      formItemProps: {hidden: true},
+      render: id => <span>{Gen(id)}</span>
     },
     {
       title: '名称',
