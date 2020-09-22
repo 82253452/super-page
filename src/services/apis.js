@@ -3,7 +3,7 @@ import {POST} from "@/utils/Const";
 export const LOGIN = `/userLogin/userLogin ${POST}`
 export const COMMON_TOKEN = `/common/ypQiniuToken`
 
-export const GET_USER_INFO = `/user/getUserInfo`
+export const GET_USER_INFO = `/user/admin/getUserInfo`
 
 
 export const ORDER_PAGE = `/order/admin/list`
