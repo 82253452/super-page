@@ -85,12 +85,12 @@ const errorHandler = (error: ResponseError) => {
     });
   }
 
-  if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
-  }
+  // if (!response) {
+  //   notification.error({
+  //     description: '您的网络发生异常，无法连接服务器',
+  //     message: '网络异常',
+  //   });
+  // }
   throw error;
 };
 
@@ -99,14 +99,14 @@ const middlewares = [async (ctx, next) => {
   req.url = process.env.DOMAIN ? `${process.env.DOMAIN}${req.url}` : req.url
   req.options.headers = {...req.options.headers, 'X-Token': localStorage.getItem(TOKEN)}
   await next();
-  const {code, msg, message, errorMsg} = ctx.res;
+  const {code, message, showMsg} = ctx.res;
   if (code === 3000) {
     history.push('/user/login')
     return
   }
   if (code !== 1000 && code !== 0) {
     notification.error({
-      message: msg || message || errorMsg
+      message: showMsg || message
     });
     return
   }

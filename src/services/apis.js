@@ -1,9 +1,9 @@
 import {POST} from "@/utils/Const";
 
-export const LOGIN = `/userLogin/userLogin ${POST}`
-export const COMMON_TOKEN = `/common/ypQiniuToken`
+export const LOGIN = `/mini/userLogin ${POST}`
+export const GET_USER_INFO = `/mini/getUserInfo`
 
-export const GET_USER_INFO = `/user/admin/getUserInfo`
+export const COMMON_TOKEN = `/common/ypQiniuToken`
 
 
 export const ORDER_PAGE = `/order/admin/list`
