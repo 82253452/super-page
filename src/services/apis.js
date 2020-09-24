@@ -51,4 +51,9 @@ export const COMPANY_UPDATE = `/company/ PUT`
 export const COMPANY_DEL = (id) => `/company/${id} DELETE`
 export const COMPANY_CHECK = `/company/checkCompany`
 
+export const STATIC_INDEX = `/static/index`
+export const STATIC_ORDER_LINE = `/static/orderLine`
+export const STATIC_DRIVER_LINE = `/static/driverLine`
+export const STATIC_USER_LINE = `/static/userLine`
+
 
