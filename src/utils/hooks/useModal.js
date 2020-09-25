@@ -2,7 +2,7 @@ import {Modal} from "antd";
 import React, {useState} from "react";
 import {useToggle} from "react-use";
 
-export default function (title, columns, actionRef, confirm, initialValues = {}) {
+export default function (title, width = 500) {
 
   const [initialValue, setInitialValue] = useState(initialValue)
 
@@ -19,6 +19,7 @@ export default function (title, columns, actionRef, confirm, initialValues = {})
     visible={on}
     onCancel={() => toggle(false)}
     footer={null}
+    width={width}
   >
     {children}
   </Modal>, toggle]

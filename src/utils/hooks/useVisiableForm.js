@@ -3,9 +3,9 @@ import {Modal, notification} from "antd";
 import React, {useState} from "react";
 import {useToggle} from "react-use";
 
-export default function (title, columns, actionRef, confirm, initialValues = {}) {
+export default function (title, columns, actionRef, confirm) {
 
-  const [initialValue, setInitialValue] = useState(initialValue)
+  const [initialValue, setInitialValue] = useState()
 
   const [on, toggle] = useToggle(false)
 
