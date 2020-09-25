@@ -31,7 +31,7 @@ export default function () {
       title: '头像',
       dataIndex: 'avatarurl',
       hideInSearch: true,
-      render: (src) => <Avatar src={src}/>
+      valueType: 'avatar'
     },
     {
       title: '联系方式',
@@ -85,7 +85,6 @@ export default function () {
       hideInSearch: true,
       render: (id, row) => (
         <>
-          <a onClick={() => checkUser(row)}>派单</a>
           {row.status === 0 ? <>
             <Divider type="vertical"/>
             <a onClick={() => checkUser(id, 2)}>拒绝通过</a>

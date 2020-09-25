@@ -1,13 +1,11 @@
 import QiniuImg from '@/components/Qiniu/upload'
-import {useRoles} from "@/components/Role";
 import TablePro from "@/components/TablePro/TablePro";
 import {SYSUSER_ADD, SYSUSER_DEL, SYSUSER_PAGE, SYSUSER_ROLES, SYSUSER_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Avatar, Button, Divider, Select, Tag} from "antd";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef} from "react";
 import {useQuery} from "react-query";
-import {useUpdateEffect} from "react-use";
 
 export default function () {
 

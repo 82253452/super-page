@@ -1,6 +1,6 @@
 import QiniuImg from "@/components/Qiniu/upload";
 import TablePro from "@/components/TablePro/TablePro";
-import {ORDER_DEL, ORDER_PAGE, ORDER_UPDATE, SYSUSER_PAGE} from "@/services/apis";
+import {ORDER_DEL, ORDER_PAGE, ORDER_TO_DRIVER, ORDER_UPDATE, SYSUSER_PAGE} from "@/services/apis";
 import useModal from "@/utils/hooks/useModal";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
@@ -96,7 +96,11 @@ export default function () {
     actionRef.current.reload()
   })
 
-  const [UserModal, setId] = useUserModal()
+  function reload() {
+
+  }
+
+  const [UserModal, setId] = useUserModal(reload)
 
 
   return <TablePro ref={actionRef} title='列表' url={ORDER_PAGE} columns={columns}>
@@ -106,9 +110,9 @@ export default function () {
 
 }
 
-function useUserModal() {
+function useUserModal(reload) {
   const actionRef = useRef()
-  const [id, setId] = useState()
+  const [orderId, setOrderId] = useState()
 
   const columns = [
     {
@@ -158,16 +162,18 @@ function useUserModal() {
 
   const [Modal, toggle] = useModal('', 1300)
 
-  function confirm() {
+  async function confirm(row) {
+    await Request(ORDER_TO_DRIVER, {userId: row.id, orderId})
+    reload && reload()
     toggle()
   }
 
-  function setUserId(id) {
-    setId(id)
+  function setId(id) {
+    setOrderId(id)
     toggle()
   }
 
   return [() => <Modal>
     <TablePro ref={actionRef} title='列表' url={SYSUSER_PAGE} columns={columns}/>
-  </Modal>, setUserId, toggle]
+  </Modal>, setId, toggle]
 }

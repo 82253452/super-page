@@ -9,6 +9,7 @@ export const COMMON_TOKEN = `/common/ypQiniuToken`
 
 export const ORDER_PAGE = `/order/admin/list`
 export const ORDER_UPDATE = `/order/ PUT`
+export const ORDER_TO_DRIVER = `/order/orderToDriver`
 export const ORDER_DEL = (id) => `/order/${id} DELETE`
 
 export const CAR_TYPE_PAGE = `/car/list`

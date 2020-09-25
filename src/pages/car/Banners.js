@@ -29,7 +29,7 @@ export default function () {
       dataIndex: 'src',
       hideInSearch: true,
       renderFormItem: () => <QiniuImg/>,
-      render: src => <Avatar size='small' src={src}/>
+      valueType: 'avatar'
     },
     {
       title: '跳转地址',
