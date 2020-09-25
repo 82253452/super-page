@@ -1,28 +1,19 @@
-import {BUSI_APP_QR_CODE, MINI_APP_PAGE} from "@/services/apis";
+import {GET_USER_APPS} from "@/services/apis";
 import {Request} from "@/utils/utils";
 import {PageContainer} from "@ant-design/pro-layout";
 import ProTable from "@ant-design/pro-table";
-import {Avatar, Button, Divider, Image, Popover, Tooltip} from "antd";
+import {Avatar, Button, Divider, Image, Popover} from "antd";
 import React, {useState} from "react";
-import {useToggle} from "react-use";
 
 
 export default function () {
 
-  const [on, toggle] = useToggle(false);
 
   const columns = [
     {
       title: 'appId',
       dataIndex: 'appId',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '规则名称为必填项',
-          },
-        ],
-      },
+      hideInSearch: true,
     },
     {
       title: '名称',
@@ -57,7 +48,7 @@ export default function () {
   }
 
   async function queryData(params, sorter, filter) {
-    return Request(MINI_APP_PAGE, {params}).then(res => ({
+    return Request(GET_USER_APPS, {params, ...{type: 2}}).then(res => ({
       data: res.list,
       success: true,
       total: res.total

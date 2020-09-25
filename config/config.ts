@@ -65,6 +65,12 @@ export default defineConfig({
           component: './open/MiniApp',
         },
         {
+          name: '公众号管理',
+          icon: 'smile',
+          path: '/open/mini-wxopen-app',
+          component: './open/MiniWxopenApp',
+        },
+        {
           name: '草稿箱',
           icon: 'smile',
           path: '/open/trafts',

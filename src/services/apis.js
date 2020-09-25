@@ -2,6 +2,7 @@ import {POST} from "@/utils/Const";
 
 export const LOGIN = `/mini/userLogin ${POST}`
 export const GET_USER_INFO = `/mini/getUserInfo`
+export const GET_USER_APPS = `/mini/getAppPages`
 
 export const COMMON_TOKEN = `/common/ypQiniuToken`
 
