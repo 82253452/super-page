@@ -9,8 +9,6 @@ import {useQuery} from "react-query";
 
 export default function () {
 
-  const {data: indexData = []} = useQuery(STATIC_INDEX, () => Request(STATIC_INDEX))
-
   const {data: orderData = []} = useQuery(STATIC_ORDER_LINE, () => Request(STATIC_ORDER_LINE).then(r => r.map(t => ({
     primary: new Date(t.time),
     secondary: t.num
@@ -53,28 +51,7 @@ export default function () {
   )
 
   return <PageContainer>
-    <Row gutter={16}>
-      <Col className="gutter-row" span={6}>
-        <Card size="small" hoverable>
-          <Statistic title="待派单数" value={indexData.preOrderNum}/>
-        </Card>
-      </Col>
-      <Col className="gutter-row" span={6}>
-        <Card size="small" title="" hoverable>
-          <Statistic title="总订单数" value={indexData.totalOrderNum}/>
-        </Card>
-      </Col>
-      <Col className="gutter-row" span={6}>
-        <Card size="small" title="" hoverable>
-          <Statistic title="司机数" value={indexData.driverNum}/>
-        </Card>
-      </Col>
-      <Col className="gutter-row" span={6}>
-        <Card size="small" title="" hoverable>
-          <Statistic title="物流公司数" value={indexData.transNum}/>
-        </Card>
-      </Col>
-    </Row>
+    <StaticNum/>
     <Divider orientation="left"/>
     <Card title='数据增长量'>
       <div
@@ -130,4 +107,30 @@ export default function () {
       </Col>
     </Row>
   </PageContainer>
+}
+
+function StaticNum() {
+  const {data: indexData = []} = useQuery(STATIC_INDEX, () => Request(STATIC_INDEX))
+  return <Row gutter={16}>
+    <Col className="gutter-row" span={6}>
+      <Card size="small" hoverable>
+        <Statistic title="待派单数" value={indexData.preOrderNum}/>
+      </Card>
+    </Col>
+    <Col className="gutter-row" span={6}>
+      <Card size="small" title="" hoverable>
+        <Statistic title="总订单数" value={indexData.totalOrderNum}/>
+      </Card>
+    </Col>
+    <Col className="gutter-row" span={6}>
+      <Card size="small" title="" hoverable>
+        <Statistic title="司机数" value={indexData.driverNum}/>
+      </Card>
+    </Col>
+    <Col className="gutter-row" span={6}>
+      <Card size="small" title="" hoverable>
+        <Statistic title="物流公司数" value={indexData.transNum}/>
+      </Card>
+    </Col>
+  </Row>
 }

@@ -3,7 +3,7 @@ import TablePro from "@/components/TablePro/TablePro";
 import {BANNER_ADD, BANNER_DEL, BANNER_PAGE, BANNER_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
-import {Button, Divider} from "antd";
+import {Avatar, Button, Divider} from "antd";
 import React, {useRef} from "react";
 
 
@@ -28,7 +28,8 @@ export default function () {
       title: '图片',
       dataIndex: 'src',
       hideInSearch: true,
-      renderFormItem: () => <QiniuImg/>
+      renderFormItem: () => <QiniuImg/>,
+      render: src => <Avatar size='small' src={src}/>
     },
     {
       title: '跳转地址',

@@ -56,4 +56,10 @@ export const STATIC_ORDER_LINE = `/static/orderLine`
 export const STATIC_DRIVER_LINE = `/static/driverLine`
 export const STATIC_USER_LINE = `/static/userLine`
 
-
+export const SYSUSER_PAGE = `/adminUser/list`
+export const SYSUSER_DETAIL = `/adminUser/detail`
+export const SYSUSER_ADD = `/adminUser/ POST`
+export const SYSUSER_UPDATE = `/adminUser/ PUT`
+export const SYSUSER_DEL = (id) => `/adminUser/${id} DELETE`
+export const SYSUSER_ROLES = `/adminUser/roles`
+export const SYSUSER_CHANGE_ROLE = `/adminUser/changeRole`
