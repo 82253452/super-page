@@ -29,11 +29,27 @@ export default function () {
     {
       title: '名称',
       dataIndex: 'title',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '类型',
       dataIndex: 'type',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '车身',

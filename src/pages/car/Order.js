@@ -22,26 +22,66 @@ export default function () {
       title: '用户名',
       dataIndex: 'userName',
       hideInForm: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '手机号',
       dataIndex: 'phone',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '价格',
       dataIndex: 'amount',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '起点',
       dataIndex: 'addressFrom',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '终点',
       dataIndex: 'addressTo',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '备注',
@@ -61,7 +101,15 @@ export default function () {
         5: '派送取消',
         6: '派送异常',
         7: '派送超时',
-      }
+      },
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '操作',

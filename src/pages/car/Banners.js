@@ -23,13 +23,30 @@ export default function () {
     {
       title: '标题',
       dataIndex: 'title',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
+
     {
       title: '图片',
       dataIndex: 'src',
       hideInSearch: true,
       renderFormItem: () => <QiniuImg/>,
-      valueType: 'avatar'
+      valueType: 'avatar',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '跳转地址',

@@ -26,6 +26,14 @@ export default function () {
     {
       title: '姓名',
       dataIndex: 'name',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '头像',
@@ -37,41 +45,105 @@ export default function () {
       title: '联系方式',
       dataIndex: 'phone',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '车牌号',
       dataIndex: 'carNumber',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '车型',
       dataIndex: 'carModel',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '车辆图片',
       dataIndex: 'carImg',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '用户照片',
       dataIndex: 'userImg',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '驾龄',
       dataIndex: 'drivingExperience',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '行驶证',
       dataIndex: 'drivingLicense',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '驾驶证',
       dataIndex: 'driversLicense',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '状态',

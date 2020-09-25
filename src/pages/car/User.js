@@ -23,33 +23,81 @@ export default function () {
     {
       title: '昵称',
       dataIndex: 'nickname',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '头像',
       dataIndex: 'avatarurl',
       hideInSearch: true,
       renderFormItem: () => <QiniuImg/>,
-      render: src => <Avatar size='small' src={src}/>
+      render: src => <Avatar size='small' src={src}/>,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '用户名',
       dataIndex: 'userName',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '手机号',
       dataIndex: 'phone',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '信誉',
       dataIndex: 'creditScore',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '余额',
       dataIndex: 'amount',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '账户类型',

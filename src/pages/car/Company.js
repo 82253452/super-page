@@ -22,40 +22,89 @@ export default function () {
     {
       title: '名称',
       dataIndex: 'name',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '营业执照',
       dataIndex: 'businessLicense',
       hideInSearch: true,
       hideInTable: true,
-      renderFormItem: () => <QiniuImg/>
+      renderFormItem: () => <QiniuImg/>,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '公司法人',
       dataIndex: 'legalPerson',
       hideInSearch: true,
-      hideInTable: true
+      hideInTable: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '法人手机',
       dataIndex: 'legalPhone',
       hideInSearch: true,
-      hideInTable: true
+      hideInTable: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '公司地址',
       dataIndex: 'address',
       hideInSearch: true,
+      hideInTable: true,
     },
     {
       title: '公司联系人',
       dataIndex: 'contactsPerson',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '联系人手机',
       dataIndex: 'contactsPhone',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
     },
     {
       title: '公司邮箱',
