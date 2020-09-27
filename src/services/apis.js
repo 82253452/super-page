@@ -65,3 +65,9 @@ export const SYSUSER_UPDATE = `/adminUser/ PUT`
 export const SYSUSER_DEL = (id) => `/adminUser/${id} DELETE`
 export const SYSUSER_ROLES = `/adminUser/roles`
 export const SYSUSER_CHANGE_ROLE = `/adminUser/changeRole`
+
+export const PRODUCT_PAGE = `/product/list`
+export const PRODUCT_DETAIL = `/product/detail`
+export const PRODUCT_ADD = `/product/ POST`
+export const PRODUCT_UPDATE = `/product/ PUT`
+export const PRODUCT_DEL = (id) => `/product/${id} DELETE`

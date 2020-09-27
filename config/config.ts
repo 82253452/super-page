@@ -48,7 +48,7 @@ export default defineConfig({
     },
     {
       path: '/welcome',
-      name: 'welcome',
+      name: '首页',
       icon: 'smile',
       component: './Welcome',
     },
@@ -137,6 +137,13 @@ export default defineConfig({
           path: '/car/order',
           component: './car/Order',
           access: 'orderManager',
+        },
+        {
+          name: '商品管理',
+          icon: 'smile',
+          path: '/car/Product',
+          component: './car/Product',
+          access: 'admin',
         },
       ]
     },

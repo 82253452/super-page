@@ -91,7 +91,6 @@ export default function () {
     {
       title: '状态',
       dataIndex: 'status',
-      hideInSearch: true,
       valueEnum: {
         0: '待派单',
         1: '待派送',
