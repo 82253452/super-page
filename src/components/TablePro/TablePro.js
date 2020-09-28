@@ -4,11 +4,16 @@ import ProTable from "@ant-design/pro-table";
 import React from "react";
 
 
-export default React.forwardRef(({title, url, formRef, columns, toolBarRender, children, tableExtraRender, search = true}, ref) => {
+export default React.forwardRef(({title, url, param = {}, formRef, columns, toolBarRender, children, tableExtraRender, search = true}, ref) => {
 
     async function queryData(params, sorter, filter) {
-        console.log(params)
-        return Request(url, {...params, status: 0, page: params.current, limit: params.pageSize}).then(res => ({
+        return Request(url, {
+            ...params,
+            status: 0,
+            page: params.current,
+            limit: params.pageSize,
+            ...param
+        }).then(res => ({
             data: res.list || res,
             success: true,
             total: res.total
