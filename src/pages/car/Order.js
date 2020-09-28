@@ -207,7 +207,7 @@ function useUserModal(reload) {
     },
   ]
 
-  const [Modal, toggle] = useModal('', 1300)
+  const [Modal, toggle] = useModal()
 
   async function confirm(row) {
     await Request(ORDER_TO_DRIVER, {userId: row.id, orderId})
@@ -220,7 +220,7 @@ function useUserModal(reload) {
     toggle()
   }
 
-  return [() => <Modal>
+  return [() => <Modal width={1300}>
     <TablePro ref={actionRef} title='列表' url={SYSUSER_PAGE} columns={columns}/>
   </Modal>, setId, toggle]
 }

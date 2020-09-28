@@ -71,3 +71,10 @@ export const PRODUCT_DETAIL = `/product/detail`
 export const PRODUCT_ADD = `/product/ POST`
 export const PRODUCT_UPDATE = `/product/ PUT`
 export const PRODUCT_DEL = (id) => `/product/${id} DELETE`
+
+export const COMMON_ALL = (url) =>`/${url}/all`
+export const COMMON_PAGE = (url) =>`/${url}/list`
+export const COMMON_DETAIL = (url) =>`/${url}/detail`
+export const COMMON_ADD = (url) =>`/${url}/ POST`
+export const COMMON_UPDATE = (url) =>`/${url}/ PUT`
+export const COMMON_DEL = (url,id) =>`/${url}/${id} DELETE`

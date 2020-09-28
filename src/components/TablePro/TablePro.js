@@ -7,7 +7,8 @@ import React from "react";
 export default React.forwardRef(({title, url, formRef, columns, toolBarRender, children, tableExtraRender, search = true}, ref) => {
 
     async function queryData(params, sorter, filter) {
-        return Request(url, {...params, status: 0}).then(res => ({
+        console.log(params)
+        return Request(url, {...params, status: 0, page: params.current, limit: params.pageSize}).then(res => ({
             data: res.list || res,
             success: true,
             total: res.total

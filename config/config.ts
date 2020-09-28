@@ -147,6 +147,38 @@ export default defineConfig({
         },
       ]
     },
+    {
+      path: '/data',
+      name: '数据管理',
+      icon: 'smile',
+      access: 'admin',
+      routes: [
+        {
+          name: '文章管理',
+          icon: 'smile',
+          path: '/data/article',
+          component: './data/Article',
+        },
+        {
+          name: '文章流',
+          icon: 'smile',
+          path: '/data/articleList',
+          component: './data/ArticleList',
+        },
+        {
+          name: '分类管理',
+          icon: 'smile',
+          path: '/data/columns',
+          component: './data/Column',
+        },
+        {
+          name: '人才库',
+          icon: 'smile',
+          path: '/data/talent',
+          component: './data/Talent',
+        },
+      ]
+    },
 
     {
       path: '/',
