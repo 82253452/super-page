@@ -1,5 +1,5 @@
 import TablePro from "@/components/TablePro/TablePro";
-import {COMMON_ALL, COMMON_DEL, COMMON_PAGE} from "@/services/apis";
+import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
 import useModal from "@/utils/hooks/useModal";
 import {Request} from "@/utils/utils";
 import {DownOutlined,} from '@ant-design/icons';
@@ -53,7 +53,7 @@ export default function () {
       hideInSearch: true,
       render: (id, row) => (
         <>
-          <a onClick={() => toggle(row.messageParam)}>推送配置</a>
+          <a onClick={() => toggle(row)}>推送配置</a>
           <Divider type="vertical"/>
           <a onClick={() => del(id)}>删除</a>
         </>
@@ -61,7 +61,7 @@ export default function () {
     },
   ]
 
-  const [Modal, toggle] = useSendConfig()
+  const [Modal, toggle] = useSendConfig({actionRef})
 
   async function del(id) {
     await Request(COMMON_DEL(SPACE, id))
@@ -73,24 +73,36 @@ export default function () {
   </TablePro>
 }
 
-function useSendConfig() {
+function useSendConfig({actionRef}) {
+  const formRef = useRef()
   const {data: columns = []} = useQuery('columns', () => Request(COMMON_ALL('column')))
 
-  const [data, setData] = useState()
+  const [data={}, setData] = useState()
+  const [row, setRow] = useState()
   const [Modal, toggle] = useModal()
 
-  function toggleForm(d) {
-    setData(JSON.parse(d))
+  function toggleForm(row) {
+    setData(JSON.parse(row.messageParam))
+    setRow(row)
     toggle()
   }
 
-  function handleOk() {
-    console.log(data)
+  async function handleOk() {
+    formRef.current.submit()
+  }
+
+  async function submit(values){
+    row.messageParam = JSON.stringify(values)
+    await Request(COMMON_UPDATE('openApp'), row)
+    actionRef.current.reload()
+    toggle()
   }
 
   return [() => <Modal title='推送配置' onOk={handleOk}>
     <Form
+      ref={formRef}
       name="basic"
+      onFinish={submit}
       initialValues={data}
     >
       <Form.Item
@@ -105,12 +117,14 @@ function useSendConfig() {
       <Form.Item
         label="留言"
         name="comment"
+        valuePropName="checked"
       >
         <Switch/>
       </Form.Item>
       <Form.Item
         label="发布"
         name="isPush"
+        valuePropName="checked"
       >
         <Switch/>
       </Form.Item>
