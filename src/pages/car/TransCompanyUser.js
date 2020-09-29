@@ -14,7 +14,6 @@ import {useQuery} from "react-query";
 
 export default function () {
 
-  console.log('transpage')
 
   const actionRef = useRef()
 
@@ -35,6 +34,12 @@ export default function () {
         ],
       },
     },
+    {
+      title: '所属物流公司',
+      dataIndex: 'transName',
+      hideInSearch: true,
+    },
+
     {
       title: '头像',
       dataIndex: 'avatarurl',
@@ -148,7 +153,20 @@ export default function () {
     {
       title: '状态',
       dataIndex: 'status',
-      hideInSearch: true,
+      valueEnum: {
+        0: '待审核',
+        1: '通过',
+        2: '未通过',
+      }
+    },
+    {
+      title: '司机状态',
+      dataIndex: 'driverStatus',
+      valueEnum: {
+        0: '正常',
+        1: '请假',
+        2: '异常',
+      }
     },
     {
       title: '操作',

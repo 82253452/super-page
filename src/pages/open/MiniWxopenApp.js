@@ -3,8 +3,9 @@ import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/api
 import useModal from "@/utils/hooks/useModal";
 import {Request} from "@/utils/utils";
 import {DownOutlined,} from '@ant-design/icons';
-import {Button, Divider, Dropdown, Form, Input, Menu, Select, Switch, Tag} from "antd";
-import React, {useCallback, useRef, useState} from "react";
+import {Button, Col, DatePicker, Divider, Dropdown, Form, Input, Menu, Row, Select, Switch, Tag} from "antd";
+import moment from "moment";
+import React, {useRef, useState} from "react";
 import {useQuery} from "react-query";
 
 export default function () {
@@ -75,14 +76,16 @@ export default function () {
 
 function useSendConfig({actionRef}) {
   const formRef = useRef()
-  const {data: columns = []} = useQuery('columns', () => Request(COMMON_ALL('column')))
+  const {data: column = []} = useQuery(COMMON_ALL('column'), () => Request(COMMON_ALL('column')))
 
-  const [data={}, setData] = useState()
+  const [data = {}, setData] = useState()
   const [row, setRow] = useState()
   const [Modal, toggle] = useModal()
 
   function toggleForm(row) {
-    setData(JSON.parse(row.messageParam))
+    const d = JSON.parse(row.messageParam)
+    d.time = moment(d.time)
+    setData(d)
     setRow(row)
     toggle()
   }
@@ -91,7 +94,7 @@ function useSendConfig({actionRef}) {
     formRef.current.submit()
   }
 
-  async function submit(values){
+  async function submit(values) {
     row.messageParam = JSON.stringify(values)
     await Request(COMMON_UPDATE('openApp'), row)
     actionRef.current.reload()
@@ -111,23 +114,27 @@ function useSendConfig({actionRef}) {
         rules={[{required: true, message: '请选择栏目!'}]}
       >
         <Select>
-          {columns.map(c => <Select.Option value={c.code}>{c.title}</Select.Option>)}
+          {column && column.map(c => <Select.Option value={c.code}>{c.title}</Select.Option>)}
         </Select>
       </Form.Item>
-      <Form.Item
-        label="留言"
-        name="comment"
-        valuePropName="checked"
-      >
-        <Switch/>
-      </Form.Item>
-      <Form.Item
-        label="发布"
-        name="isPush"
-        valuePropName="checked"
-      >
-        <Switch/>
-      </Form.Item>
+      <Row>
+        <Col span={12}><Form.Item
+          label="留言"
+          name="comment"
+          valuePropName="checked"
+        >
+          <Switch/>
+        </Form.Item></Col>
+        <Col span={12}>
+          <Form.Item
+            label="发布"
+            name="isPush"
+            valuePropName="checked"
+          >
+            <Switch/>
+          </Form.Item>
+        </Col>
+      </Row>
       <Form.Item
         label="原文链接"
         name="url"
@@ -138,7 +145,7 @@ function useSendConfig({actionRef}) {
         label="时间"
         name="time"
       >
-        <Input/>
+        <DatePicker showTime format='YYYY/MM/DD HH:mm:ss'/>
       </Form.Item>
       <Form.Item
         label="小程序appId"

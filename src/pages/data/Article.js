@@ -97,7 +97,7 @@ export default function () {
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'del',
       valueEnum: stausEnum,
     },
     {
