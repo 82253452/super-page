@@ -1,3 +1,4 @@
+import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from '@/components/Qiniu/upload'
 import TablePro from "@/components/TablePro/TablePro";
 import {COMPANY_ADD, COMPANY_CHECK, COMPANY_DEL, COMPANY_PAGE, COMPANY_UPDATE} from "@/services/apis";
@@ -148,7 +149,7 @@ export default function () {
             <a onClick={() => check(id, 1)}>审核通过</a>
           </> : <></>}
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

@@ -1,12 +1,6 @@
+import DelConfirm from '@/components/DelConfirm'
 import TablePro from "@/components/TablePro/TablePro";
-import {
-  BANNER_ADD,
-  BANNER_UPDATE, CAR_TYPE_ADD,
-  CAR_TYPE_DEL,
-  CAR_TYPE_PAGE,
-  CAR_TYPE_UPDATE,
-  TRANS_COMPANY_DEL
-} from "@/services/apis";
+import {CAR_TYPE_ADD, CAR_TYPE_DEL, CAR_TYPE_PAGE, CAR_TYPE_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Button, Divider, Input} from "antd";
@@ -79,7 +73,7 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

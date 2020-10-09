@@ -1,3 +1,4 @@
+import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from "@/components/Qiniu/upload";
 import TablePro from "@/components/TablePro/TablePro";
 import {PRODUCT_ADD, PRODUCT_DEL, PRODUCT_PAGE, PRODUCT_UPDATE} from "@/services/apis";
@@ -93,7 +94,7 @@ export default function () {
           <Divider type="vertical"/>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

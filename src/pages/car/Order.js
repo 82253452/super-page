@@ -1,3 +1,4 @@
+import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from "@/components/Qiniu/upload";
 import TablePro from "@/components/TablePro/TablePro";
 import {ORDER_DEL, ORDER_PAGE, ORDER_TO_DRIVER, ORDER_UPDATE, SYSUSER_PAGE} from "@/services/apis";
@@ -121,7 +122,7 @@ export default function () {
           <Divider type="vertical"/>
           <a onClick={() => updateOrder(raw)}>修改订单</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

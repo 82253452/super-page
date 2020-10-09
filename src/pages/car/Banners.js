@@ -3,7 +3,8 @@ import TablePro from "@/components/TablePro/TablePro";
 import {BANNER_ADD, BANNER_DEL, BANNER_PAGE, BANNER_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
-import {Avatar, Button, Divider} from "antd";
+import DelConfirm from '@/components/DelConfirm'
+import {Avatar, Button, Divider, Popconfirm} from "antd";
 import React, {useRef} from "react";
 
 
@@ -62,7 +63,7 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

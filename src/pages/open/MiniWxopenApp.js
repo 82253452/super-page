@@ -1,3 +1,4 @@
+import DelConfirm from '@/components/DelConfirm'
 import TablePro from "@/components/TablePro/TablePro";
 import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
 import useModal from "@/utils/hooks/useModal";
@@ -56,7 +57,7 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>推送配置</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

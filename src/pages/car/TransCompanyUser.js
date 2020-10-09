@@ -1,3 +1,4 @@
+import DelConfirm from '@/components/DelConfirm'
 import TablePro from "@/components/TablePro/TablePro";
 import {
   TRANS_COMPANY_DETAIL,
@@ -7,7 +8,7 @@ import {
 } from "@/services/apis";
 import {Request} from "@/utils/utils";
 import {useModel} from "@@/plugin-model/useModel";
-import {Avatar, Card, Descriptions, Divider} from "antd";
+import {Card, Descriptions, Divider} from "antd";
 import React, {useRef} from "react";
 import {useQuery} from "react-query";
 
@@ -186,7 +187,7 @@ export default function () {
             <a onClick={() => checkUser(id, 1)}>审核通过</a>
           </> : <></>}
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },

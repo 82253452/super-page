@@ -1,8 +1,7 @@
-import QiniuImg from "@/components/Qiniu/upload";
+import DelConfirm from '@/components/DelConfirm'
 import TablePro from "@/components/TablePro/TablePro";
 import {COMMON_ADD, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
 import useVisiableForm from "@/utils/hooks/useVisiableForm";
-import {Gen} from "@/utils/IdToCode";
 import {Request} from "@/utils/utils";
 import {Button, Divider} from "antd";
 import React, {useRef} from "react";
@@ -56,7 +55,7 @@ export default function () {
         <>
           <a onClick={() => toggle(row)}>更新</a>
           <Divider type="vertical"/>
-          <a onClick={() => del(id)}>删除</a>
+          <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },
