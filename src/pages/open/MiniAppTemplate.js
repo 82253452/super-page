@@ -62,7 +62,7 @@ export default function () {
 
 
   return <TablePro ref={actionRef} title='列表' url={MINI_APP_TEMPLATES} columns={columns}>
-    <MiniApp/>
+    {MiniApp}
   </TablePro>
 }
 

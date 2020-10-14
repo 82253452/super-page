@@ -99,7 +99,7 @@ export default function () {
       新建
     </Button>
   ]}>
-    <CarTypes/>
+    {CarTypes}
   </TablePro>
 }
 

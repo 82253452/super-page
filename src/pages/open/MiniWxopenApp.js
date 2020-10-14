@@ -71,7 +71,7 @@ export default function () {
   }
 
   return <TablePro ref={actionRef} title='列表' url={COMMON_PAGE(SPACE)} columns={columns} param={{type: 1}}>
-    <Modal/>
+    {Modal}
   </TablePro>
 }
 

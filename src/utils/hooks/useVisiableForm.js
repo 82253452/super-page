@@ -14,27 +14,27 @@ export default function (title, columns, actionRef, confirm) {
     toggle(!on)
   }
 
-  return [() => <Modal
-    destroyOnClose
-    title={title}
-    visible={on}
-    onCancel={() => toggle(false)}
-    footer={null}
-    width={1200}
+  return [<Modal
+      destroyOnClose
+      title={title}
+      visible={on}
+      onCancel={() => toggle(false)}
+      footer={null}
+      width={1200}
   >
-    <ProTable
-      form={{initialValues: initialValue}}
-      onSubmit={async (value) => {
-        confirm && confirm(value)
-        toggle()
-        if (actionRef.current) {
-          actionRef.current.reload();
-        }
-      }}
-      rowKey="key"
-      type="form"
-      columns={columns}
-    />
-  </Modal>, toggleForm]
+      <ProTable
+          form={{initialValues: initialValue}}
+          onSubmit={async (value) => {
+              confirm && confirm(value)
+              toggle()
+              if (actionRef.current) {
+                  actionRef.current.reload();
+              }
+          }}
+          rowKey="key"
+          type="form"
+          columns={columns}
+      />
+  </Modal> , toggleForm]
 
 }

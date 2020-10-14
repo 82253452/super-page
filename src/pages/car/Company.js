@@ -175,6 +175,6 @@ export default function () {
   })
 
   return <TablePro ref={actionRef} title='列表' url={COMPANY_PAGE} columns={columns}>
-    <Modal/>
+    {Modal}
   </TablePro>
 }

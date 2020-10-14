@@ -152,7 +152,7 @@ export default function () {
 
 
   return <TablePro ref={actionRef} title='列表' url={ORDER_PAGE} columns={columns}>
-    <Modal/>
+    {Modal}
     <UserModal/>
   </TablePro>
 

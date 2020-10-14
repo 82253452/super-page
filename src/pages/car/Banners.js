@@ -90,6 +90,6 @@ export default function () {
       新建
     </Button>
   ]}>
-    <Modal/>
+    {Modal}
   </TablePro>
 }
