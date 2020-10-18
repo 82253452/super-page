@@ -145,6 +145,13 @@ export default defineConfig({
           component: './car/Product',
           access: 'admin',
         },
+		{
+          name: '消息管理',
+          icon: 'smile',
+          path: '/car/message',
+          component: './car/Message',
+          access: 'admin',
+        },
       ]
     },
     {

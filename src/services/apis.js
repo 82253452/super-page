@@ -40,6 +40,11 @@ export const TRANS_COMPANY_ADD = `/trans/ POST`
 export const TRANS_COMPANY_UPDATE = `/trans/ PUT`
 export const TRANS_COMPANY_DEL = (id) => `/trans/${id} DELETE`
 
+export const MESSAGE_PAGE = `/homeMessage/list`
+export const MESSAGE_DETAIL = `/homeMessage/detail`
+export const MESSAGE_ADD = `/homeMessage/ POST`
+export const MESSAGE_UPDATE = `/homeMessage/ PUT`
+export const MESSAGE_DEL = (id) => `/homeMessage/${id} DELETE`
 
 export const TRANS_COMPANY_USER_PAGE = `/transCompanyUser/admin/list`
 export const TRANS_COMPANY_USER_CHECK_USER = `/transCompanyUser/checkUser`
