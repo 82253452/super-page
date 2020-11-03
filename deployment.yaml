@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    field.cattle.io/targetWorkloadIds: '["deployment:default:mass"]'
-  name: mass  #TODO:zkxy-config改为服务名称
+    field.cattle.io/targetWorkloadIds: '["deployment:default:super-page"]'
+  name: super-page  #TODO:zkxy-config改为服务名称
   namespace: default
 spec:
   selector:
-    workload.user.cattle.io/workloadselector: deployment-default-mass #TODO:zkxy-config改为服务名称
+    workload.user.cattle.io/workloadselector: deployment-default-super-page #TODO:zkxy-config改为服务名称
   type: NodePort
   ports:
     - protocol: TCP
@@ -17,24 +17,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mass #TODO:zkxy-config改为服务名称
+  name: super-page #TODO:zkxy-config改为服务名称
   namespace: default
   labels:
-    workload.user.cattle.io/workloadselector: deployment-default-mass #TODO:zkxy-config改为服务名称
+    workload.user.cattle.io/workloadselector: deployment-default-super-page #TODO:zkxy-config改为服务名称
 spec:
   replicas: 1
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-mass #TODO:zkxy-config改为服务名称
+      workload.user.cattle.io/workloadselector: deployment-default-super-page #TODO:zkxy-config改为服务名称
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: deployment-default-mass #TODO:zkxy-config改为服务名称
+        workload.user.cattle.io/workloadselector: deployment-default-super-page #TODO:zkxy-config改为服务名称
     spec:
       imagePullSecrets:
         - name: private-repository
       containers:
-        - name: mass         #TODO:pod的名称，必须字段，名称唯一且对象创建后不可以被修改
+        - name: super-page         #TODO:pod的名称，必须字段，名称唯一且对象创建后不可以被修改
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}  #TODO:镜像仓库的路径/镜像的名称:镜像的标签
           imagePullPolicy: Always  #Always(总是去仓库下载),Never(从不去仓库下载),IfNotPresent(如果本地没有就去仓库下载),默认是"IfNotPresent"
           ports:
@@ -43,19 +43,19 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: mass
+  name: super-page
   namespace: default
 spec:
   rules:
-    - host: mass.doatu.com
+    - host: super-page.doatu.com
       http:
         paths:
           - backend:
-              serviceName: mass
+              serviceName: super-page
               servicePort: 8080
             pathType: ImplementationSpecific
-  tls:
-    - secretName: mass
+#  tls:
+#    - secretName: super-page
 
 
 
