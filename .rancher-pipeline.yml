@@ -1,0 +1,22 @@
+stages:
+  - name: Build
+    steps:
+      - runScriptConfig:
+          image: node:10
+          shellScript: npm config set registry http://registry.npm.taobao.org/ && npm install && npm run build:prod
+  - name: Publish
+    steps:
+      - publishImageConfig:
+          dockerfilePath: ./Dockerfile
+          buildContext: .
+          tag: 62.234.46.46:30738/super-page:${CICD_EXECUTION_SEQUENCE}
+          # （可选）是否推送到远端仓库
+          pushRemote: true
+          registry: 62.234.46.46:30738
+        env:
+          PLUGIN_DEBUG: "true"
+          PLUGIN_INSECURE: "true"
+  - name: Deploy
+    steps:
+      - applyYamlConfig:
+          path: ./deployment.yaml
