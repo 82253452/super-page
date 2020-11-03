@@ -11,8 +11,8 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 8080       #TODO:kubernetes中的服务之间访问的端口
-      targetPort: 8080 #TODO:容器的端口(最根本的端口)，与制作容器时暴露的端口一致(DockerFile中EXPOSE)
+      port: 80       #TODO:kubernetes中的服务之间访问的端口
+      targetPort: 80 #TODO:容器的端口(最根本的端口)，与制作容器时暴露的端口一致(DockerFile中EXPOSE)
 ---
 apiVersion: apps/v1
 kind: Deployment
