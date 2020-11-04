@@ -52,7 +52,7 @@ spec:
         paths:
           - backend:
               serviceName: super-page
-              servicePort: 8080
+              servicePort: 80
             pathType: ImplementationSpecific
 #  tls:
 #    - secretName: super-page
