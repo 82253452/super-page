@@ -197,7 +197,6 @@ export default defineConfig({
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
-    // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
   },
   // @ts-ignore
