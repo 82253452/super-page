@@ -200,6 +200,9 @@ export default defineConfig({
     // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
   },
+  menu: {
+    locale: false,  //关闭国际化
+  },
   // @ts-ignore
   title: false,
   ignoreMomentLocale: true,
