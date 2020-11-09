@@ -7,11 +7,13 @@ import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Avatar, Divider} from "antd";
 import React, {useRef, useState} from "react";
+import {Map, Marker, NavigationControl, InfoWindow,Polyline} from "react-bmap";
 
 
 export default function () {
 
   const actionRef = useRef()
+  const [row, setRow] = useState({})
 
   const columns = [
     {
@@ -122,11 +124,17 @@ export default function () {
           <Divider type="vertical"/>
           <a onClick={() => updateOrder(raw)}>修改订单</a>
           <Divider type="vertical"/>
+          <a onClick={() => {
+            mapShow();
+            setRow(raw)
+          }}>查看地图</a>
+          <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
       ),
     },
   ];
+
 
   async function del(id) {
     await Request(ORDER_DEL(id))
@@ -150,9 +158,12 @@ export default function () {
 
   const [UserModal, setId] = useUserModal(reload)
 
+  const [Map, mapShow] = useMapModal({data: row})
+
 
   return <TablePro ref={actionRef} title='列表' url={ORDER_PAGE} columns={columns}>
     {Modal}
+    <Map/>
     <UserModal/>
   </TablePro>
 
@@ -224,4 +235,28 @@ function useUserModal(reload) {
   return [() => <Modal width={1300}>
     <TablePro ref={actionRef} title='列表' url={SYSUSER_PAGE} columns={columns}/>
   </Modal>, setId, toggle]
+}
+
+function useMapModal({data={}}) {
+
+  const [Modal, toggle] = useModal()
+
+  const route = JSON.parse(data?.addressRoute||'[]').map(r=>({lng:r.longitude,lat:r.latitude})) || []
+
+  return [() => <Modal width={1300}>
+    <Map center={{lng: data.longitudeFrom , lat: data.latitudeFrom}}
+         style={{height:'800px'}}
+         zoom="8">
+      <Polyline
+        strokeColor='red'
+        path={[
+          {lng: data.longitudeFrom, lat: data.latitudeFrom},
+          ...route,
+          {lng: data.longitudeTo , lat: data.latitudeTo },
+        ]}/>
+      <NavigationControl/>
+      <Marker position={{lng: data.longitudeFrom, lat: data.latitudeFrom }}/>
+      <Marker position={{lng: data.longitudeTo, lat: data.latitudeTo}}/>
+    </Map>
+  </Modal>, toggle]
 }
