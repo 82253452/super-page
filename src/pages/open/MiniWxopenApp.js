@@ -1,20 +1,23 @@
 import DelConfirm from '@/components/DelConfirm'
+import SuperModal from '@/components/SuperModal'
 import TablePro from "@/components/TablePro/TablePro";
+
 import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
-import useModal from "@/utils/hooks/useModal";
 import {Request} from "@/utils/utils";
 import {DownOutlined,} from '@ant-design/icons';
 import {Button, Col, DatePicker, Divider, Dropdown, Form, Input, Menu, Row, Select, Switch, Tag} from "antd";
 import moment from "moment";
-import React, {useRef, useState} from "react";
+import React, {forwardRef, useRef, useState} from "react";
 import {useQuery} from "react-query";
+import {useUpdateEffect} from "react-use";
 
 export default function () {
 
   const SPACE = 'openApp'
 
   const actionRef = useRef()
-
+  const formRef = useRef()
+  const [raw, setRaw] = useState()
 
   const columns = [
     {
@@ -53,9 +56,12 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
-          <a onClick={() => toggle(row)}>推送配置</a>
+          <a onClick={() => {
+            setRaw(raw)
+            formRef.current.toggle()
+          }}>推送配置</a>
           <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
@@ -63,46 +69,45 @@ export default function () {
     },
   ]
 
-  const [Modal, toggle] = useSendConfig({actionRef})
 
   async function del(id) {
     await Request(COMMON_DEL(SPACE, id))
     actionRef.current.reload()
   }
 
+  function handleOk() {
+    actionRef.current.reload()
+  }
+
   return <TablePro ref={actionRef} title='列表' url={COMMON_PAGE(SPACE)} columns={columns} param={{type: 1}}>
-    {Modal}
+    <SendConfig ref={formRef} raw={raw} onOk={handleOk}/>
   </TablePro>
 }
-
-function useSendConfig({actionRef}) {
+const SendConfig = forwardRef(({raw, onOk}, ref) => {
   const formRef = useRef()
   const {data: column = []} = useQuery(COMMON_ALL('column'), () => Request(COMMON_ALL('column')))
 
   const [data = {}, setData] = useState()
-  const [row, setRow] = useState()
-  const [Modal, toggle] = useModal()
 
-  function toggleForm(row) {
-    const d = JSON.parse(row.messageParam)
+  useUpdateEffect(() => {
+    const d = JSON.parse(raw.messageParam)
     d.time = moment(d.time)
     setData(d)
-    setRow(row)
-    toggle()
-  }
+  }, [raw])
 
   async function handleOk() {
     formRef.current.submit()
-  }
-
-  async function submit(values) {
-    row.messageParam = JSON.stringify(values)
-    await Request(COMMON_UPDATE('openApp'), row)
-    actionRef.current.reload()
     toggle()
   }
 
-  return [() => <Modal title='推送配置' onOk={handleOk}>
+  async function submit(values) {
+    raw.messageParam = JSON.stringify(values)
+    await Request(COMMON_UPDATE('openApp'), raw)
+    onOk && onOk()
+    toggle()
+  }
+
+  return <SuperModal ref={ref} title='推送配置' onOk={handleOk}>
     <Form
       ref={formRef}
       name="basic"
@@ -167,8 +172,8 @@ function useSendConfig({actionRef}) {
         <TagSelect/>
       </Form.Item>
     </Form>
-  </Modal>, toggleForm]
-}
+  </SuperModal>
+})
 
 function TagSelect({value = '', onChange}) {
 

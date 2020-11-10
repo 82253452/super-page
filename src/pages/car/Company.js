@@ -1,16 +1,17 @@
 import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from '@/components/Qiniu/upload'
+import SuperForm from "@/components/SuperForm";
 import TablePro from "@/components/TablePro/TablePro";
 import {COMPANY_ADD, COMPANY_CHECK, COMPANY_DEL, COMPANY_PAGE, COMPANY_UPDATE} from "@/services/apis";
-import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Divider} from "antd";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 
 export default function () {
 
   const actionRef = useRef()
-
+  const formRef = useRef()
+  const [raw, setRaw] = useState()
 
   const columns = [
     {
@@ -134,17 +135,18 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
           <Divider type="vertical"/>
-          <a onClick={() => toggle(row)}>更新</a>
-          {row.status === 0 ? <>
+          <a onClick={() => {setRaw(raw)
+            formRef.current.toggle()}}>更新</a>
+          {raw.status === 0 ? <>
             <Divider type="vertical"/>
             <a onClick={() => check(id, 2)}>拒绝通过</a>
             <Divider type="vertical"/>
             <a onClick={() => check(id, 1)}>审核通过</a>
           </> : <></>}
-          {row.status === 2 ? <>
+          {raw.status === 2 ? <>
             <Divider type="vertical"/>
             <a onClick={() => check(id, 1)}>审核通过</a>
           </> : <></>}
@@ -160,21 +162,21 @@ export default function () {
     actionRef.current.reload()
   }
 
-  async function check(id, status) {
-    await Request(COMPANY_CHECK, {id, status})
-    actionRef.current.reload()
-  }
-
-  const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
+  async function handleSubmit(values) {
     if (values.id) {
       await Request(COMPANY_UPDATE, values)
     } else {
       await Request(COMPANY_ADD, values)
     }
     actionRef.current.reload()
-  })
+  }
+
+  async function check(id, status) {
+    await Request(COMPANY_CHECK, {id, status})
+    actionRef.current.reload()
+  }
 
   return <TablePro ref={actionRef} title='列表' url={COMPANY_PAGE} columns={columns}>
-    {Modal}
+    <SuperForm ref={formRef} title='表单' value={raw} columns={columns} onSubmit={handleSubmit}/>
   </TablePro>
 }

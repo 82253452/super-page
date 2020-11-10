@@ -1,17 +1,18 @@
 import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from '@/components/Qiniu/upload'
+import SuperForm from "@/components/SuperForm";
 import TablePro from "@/components/TablePro/TablePro";
 import {SYSUSER_ADD, SYSUSER_DEL, SYSUSER_PAGE, SYSUSER_ROLES, SYSUSER_UPDATE} from "@/services/apis";
-import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
 import {Avatar, Button, Divider, Select, Tag} from "antd";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {useQuery} from "react-query";
 
 export default function () {
 
   const actionRef = useRef()
-
+  const formRef = useRef()
+  const [raw, setRaw] = useState()
 
   const columns = [
     {
@@ -123,9 +124,12 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
-          <a onClick={() => toggle(row)}>更新</a>
+          <a onClick={() => {
+            setRaw(raw)
+            formRef.current.toggle()
+          }}>更新</a>
           <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
@@ -138,22 +142,24 @@ export default function () {
     actionRef.current.reload()
   }
 
-
-  const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
+  async function handleSubmit(values) {
     if (values.id) {
       await Request(SYSUSER_UPDATE, values)
     } else {
       await Request(SYSUSER_ADD, values)
     }
     actionRef.current.reload()
-  })
+  }
 
   return <TablePro ref={actionRef} title='列表' url={SYSUSER_PAGE} columns={columns} toolBarRender={() => [
-    <Button type="primary" onClick={() => toggle()}>
+    <Button type="primary" onClick={() => {
+      setRaw({})
+      formRef.current.toggle()
+    }}>
       新建
     </Button>
   ]}>
-    {Modal}
+    <SuperForm ref={formRef} title='表单' value={raw} columns={columns} onSubmit={handleSubmit}/>
   </TablePro>
 }
 

@@ -53,7 +53,6 @@ const Login: React.FC<{}> = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const {refresh} = useModel('@@initialState');
-  const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState<string>('account');
 
   const handleSubmit = async (values: LoginParamsType) => {

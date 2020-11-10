@@ -1,16 +1,17 @@
 import DelConfirm from '@/components/DelConfirm'
+import SuperForm from "@/components/SuperForm";
 import TablePro from "@/components/TablePro/TablePro";
 import {CAR_TYPE_ADD, CAR_TYPE_DEL, CAR_TYPE_PAGE, CAR_TYPE_UPDATE} from "@/services/apis";
-import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Request} from "@/utils/utils";
-import {Button, Divider, Input} from "antd";
-import React, {useRef} from "react";
+import {Button, Divider} from "antd";
+import React, {useRef, useState} from "react";
 
 
 export default function () {
 
   const actionRef = useRef()
-
+  const formRef = useRef()
+  const [raw, setRaw] = useState()
 
   const columns = [
     {
@@ -69,9 +70,10 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
-          <a onClick={() => toggle(row)}>更新</a>
+          <a onClick={() => {setRaw(raw)
+            formRef.current.toggle()}}>更新</a>
           <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
@@ -84,25 +86,23 @@ export default function () {
     actionRef.current.reload()
   }
 
-
-  const [CarTypes, toggle] = useVisiableForm('新建', columns, actionRef, async values => {
+  async function handleSubmit(values) {
     if (values.id) {
       await Request(CAR_TYPE_UPDATE, values)
     } else {
       await Request(CAR_TYPE_ADD, values)
     }
     actionRef.current.reload()
-  })
+  }
+
 
   return <TablePro ref={actionRef} title='车型列表' url={CAR_TYPE_PAGE} columns={columns} toolBarRender={() => [
-    <Button type="primary" onClick={() => toggle()}>
+    <Button type="primary" onClick={() => {setRaw({})
+      formRef.current.toggle()}}>
       新建
     </Button>
   ]}>
-    {CarTypes}
+    <SuperForm ref={formRef} title='表单' value={raw} columns={columns} onSubmit={handleSubmit}/>
   </TablePro>
 }
 
-function Hidden({value}) {
-  return <Input value={value} hidden={true}/>
-}

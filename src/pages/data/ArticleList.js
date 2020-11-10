@@ -1,9 +1,9 @@
-import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
-import useModal from "@/utils/hooks/useModal";
+import SuperModal from "@/components/SuperModal";
+import {COMMON_ALL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
 import {Request} from "@/utils/utils";
 import {FormOutlined, VideoCameraOutlined,} from '@ant-design/icons';
 import {Card, List, Switch} from "antd";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import InfiniteScroll from 'react-infinite-scroller';
 import {useInfiniteQuery, useMutation, useQuery, useQueryCache} from "react-query";
 
@@ -12,6 +12,7 @@ export default function () {
   const SPACE = 'article'
 
   const cache = useQueryCache()
+  const modalRef = useRef()
 
   const [temp, setTemp] = useState({})
 
@@ -41,12 +42,8 @@ export default function () {
 
   function showModal(row) {
     setTemp(row)
-    toggle()
+    modalRef.current.toggle()
   }
-
-
-  const [Modal, toggle] = useModal()
-
 
   return <InfiniteScroll
     initialLoad={false}
@@ -80,10 +77,10 @@ export default function () {
       </List.Item>
     ))}
   />
-    <Modal width={1000}>
+    <SuperModal ref={modalRef} width={1000}>
       {temp.type === 0 ? <iframe
           src={temp.content} frameBorder="0" name="showHere" scrolling="auto" width='100%' height="600px"/>
         : <div dangerouslySetInnerHTML={{__html: temp.content}}/>}
-    </Modal>
+    </SuperModal>
   </InfiniteScroll>
 }

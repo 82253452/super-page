@@ -1,7 +1,6 @@
 import {parse} from 'querystring';
-import {request} from 'umi';
+import {request, history} from 'umi';
 import {GET} from "@/utils/Const";
-
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
 
@@ -39,16 +38,21 @@ export const getPageQuery = () => {
   return {};
 };
 
-export function Request(url: any, data: any = {}) {
+export async function Request(url: any, data: any = {}) {
   if (!url) {
     return;
   }
   const urlArray = url.split(" ");
   url = urlArray[0]
   const method = urlArray[1] || GET
+  let res;
   if (method === GET) {
-    return request(url, {method, params: data}).then((res: any) => res.data)
+    res = await request(url, {method, params: data})
   } else {
-    return request(url, {method, data}).then((res: any) => res.data)
+    res = await request(url, {method, data})
   }
+  if (res.code === 3 || res.code === 4) {
+    history.push('/user/login');
+  }
+  return res.data
 }

@@ -1,17 +1,18 @@
 import DelConfirm from '@/components/DelConfirm'
 import QiniuImg from "@/components/Qiniu/upload";
+import SuperForm from "@/components/SuperForm";
 import TablePro from "@/components/TablePro/TablePro";
 import {PRODUCT_ADD, PRODUCT_DEL, PRODUCT_PAGE, PRODUCT_UPDATE} from "@/services/apis";
-import useVisiableForm from "@/utils/hooks/useVisiableForm";
 import {Gen} from "@/utils/IdToCode";
 import {Request} from "@/utils/utils";
 import {Button, Divider} from "antd";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 
 export default function () {
 
   const actionRef = useRef()
-
+  const formRef = useRef()
+  const [raw, setRaw] = useState()
 
   const columns = [
     {
@@ -88,11 +89,14 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
-          <a onClick={() => toggleStatus(row)}>{row.status === 0 ? '上架' : '下架'}</a>
+          <a onClick={() => toggleStatus(raw)}>{raw.status === 0 ? '上架' : '下架'}</a>
           <Divider type="vertical"/>
-          <a onClick={() => toggle(row)}>更新</a>
+          <a onClick={() => {
+            setRaw(raw)
+            formRef.current.toggle()
+          }}>更新</a>
           <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
@@ -100,9 +104,9 @@ export default function () {
     },
   ]
 
-  async function toggleStatus(row) {
-    row.status = row.status === 0 ? 1 : 0
-    await Request(PRODUCT_UPDATE, row)
+  async function toggleStatus(raw) {
+    raw.status = raw.status === 0 ? 1 : 0
+    await Request(PRODUCT_UPDATE, raw)
     actionRef.current.reload()
   }
 
@@ -111,21 +115,23 @@ export default function () {
     actionRef.current.reload()
   }
 
-
-  const [Modal, toggle] = useVisiableForm('表单', columns, actionRef, async values => {
+  async function handleSubmit(values) {
     if (values.id) {
       await Request(PRODUCT_UPDATE, values)
     } else {
       await Request(PRODUCT_ADD, values)
     }
     actionRef.current.reload()
-  })
+  }
 
   return <TablePro ref={actionRef} title='列表' url={PRODUCT_PAGE} columns={columns} toolBarRender={() => [
-    <Button type="primary" onClick={() => toggle()}>
+    <Button type="primary" onClick={() => {
+      setRaw({})
+      formRef.current.toggle()
+    }}>
       新建
     </Button>
   ]}>
-    {Modal}
+    <SuperForm ref={formRef} title='表单' value={raw} columns={columns} onSubmit={handleSubmit}/>
   </TablePro>
 }

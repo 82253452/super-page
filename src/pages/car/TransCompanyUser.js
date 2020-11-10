@@ -174,15 +174,15 @@ export default function () {
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
-      render: (id, row) => (
+      render: (id, raw) => (
         <>
-          {row.status === 0 ? <>
+          {raw.status === 0 ? <>
             <Divider type="vertical"/>
             <a onClick={() => checkUser(id, 2)}>拒绝通过</a>
             <Divider type="vertical"/>
             <a onClick={() => checkUser(id, 1)}>审核通过</a>
           </> : <></>}
-          {row.status === 2 ? <>
+          {raw.status === 2 ? <>
             <Divider type="vertical"/>
             <a onClick={() => checkUser(id, 1)}>审核通过</a>
           </> : <></>}
