@@ -16,7 +16,7 @@ function getBase64(file) {
 
 const baseUrl = 'http://img.zhihuizhan.net';
 
-export default function ({max = 1, value, onChange}) {
+export default function ({max = 1, value, onChange, showUploadList = true, listType = 'picture-card', children}) {
   const modalRef = useRef()
   const [previewImage, setPreviewImage] = useState('');
   const [fileLists, setFileLists] = useState(value ? value.split(',').map((url, uid) => ({
@@ -52,14 +52,16 @@ export default function ({max = 1, value, onChange}) {
       <Upload
         headers={headers}
         action="https://upload-z2.qiniup.com"
-        listType="picture-card"
+        listType={listType}
         fileList={fileLists}
+        showUploadList={showUploadList}
         data={uploaData}
         beforeUpload={beforeUpload}
         onPreview={handlePreview}
         onChange={handleChange}
       >
-        {fileLists.length < max && <div>
+
+        {children ? children : fileLists.length < max && <div>
           <PlusOutlined/>
           <div style={{marginTop: 8}}>Upload</div>
         </div>}

@@ -1,15 +1,8 @@
 import SuperForm from "@/components/SuperForm";
 import TablePro from "@/components/TablePro/TablePro";
-import {
-  BUSI_APP_DEL_TEMPLATE, COMMON_ADD,
-  COMMON_UPDATE,
-  MINI_APP_PAGE,
-  MINI_APP_TEMPLATES,
-  MINI_APP_UPLOAD
-} from "@/services/apis";
+import {BUSI_APP_DEL_TEMPLATE, MINI_APP_PAGE, MINI_APP_TEMPLATES, MINI_APP_UPLOAD} from "@/services/apis";
 import {Request} from "@/utils/utils";
-import {Divider, Input, Select} from "antd";
-import Text from "antd/es/typography/Text";
+import {Divider, Select} from "antd";
 import React, {useRef, useState} from "react";
 import {useQuery} from "react-query";
 
@@ -47,7 +40,7 @@ export default function () {
       render: (templateId, row) => (
         <>
           <a onClick={() => {
-            setRaw(raw)
+            setRaw(row)
             formRef.current.toggle()
           }}>设为体验版</a>
           <Divider type="vertical"/>
@@ -75,12 +68,13 @@ export default function () {
       {
         title: '模板',
         dataIndex: 'templateId',
+        formItemProps: {hidden: true}
       }]} onSubmit={handleSubmit}/>
   </TablePro>
 }
 
 function MiniList({value, onChange}) {
-  const {data} = useQuery(MINI_APP_PAGE, () => Request(MINI_APP_PAGE).then(r => r.list.map(l => ({
+  const {data} = useQuery(MINI_APP_PAGE, () => Request(MINI_APP_PAGE,{miniType:2}).then(r => r.list.map(l => ({
     value: l.appId,
     label: l.nickName,
   }))))

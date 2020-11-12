@@ -1,5 +1,6 @@
 import DelConfirm from '@/components/DelConfirm'
 import SuperForm from "@/components/SuperForm";
+import Editor from "@/components/Editor";
 import TablePro from "@/components/TablePro/TablePro";
 import {MESSAGE_ADD, MESSAGE_DEL, MESSAGE_PAGE, MESSAGE_UPDATE} from "@/services/apis";
 import {Gen} from "@/utils/IdToCode";
@@ -15,11 +16,10 @@ export default function () {
 
   const columns = [
     {
-      title: '消息id',
+      title: 'id',
       dataIndex: 'id',
       hideInSearch: true,
-      formItemProps: {hidden: true},
-      render: id => <span>{Gen(id)}</span>
+      formItemProps: {hidden: true}
     },
     {
       title: '标题',
@@ -47,25 +47,22 @@ export default function () {
     },
     {
       title: '内容',
+      hideInSearch: true,
+      hideInTable: true,
       dataIndex: 'content',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '必填字段',
-          },
-        ],
-      },
+      renderFormItem: ()=><Editor/>,
     },
-	{
+    {
       title: '操作',
       dataIndex: 'id',
       hideInForm: true,
       hideInSearch: true,
       render: (id, raw) => (
         <>
-          <a onClick={() => {setRaw(raw)
-            formRef.current.toggle()}}>更新</a>
+          <a onClick={() => {
+            setRaw(raw)
+            formRef.current.toggle()
+          }}>更新</a>
           <Divider type="vertical"/>
           <DelConfirm onClick={() => del(id)}/>
         </>
@@ -77,6 +74,7 @@ export default function () {
     await Request(MESSAGE_DEL(id))
     actionRef.current.reload()
   }
+
   async function handleSubmit(values) {
     if (values.id) {
       await Request(MESSAGE_UPDATE, values)
@@ -87,10 +85,11 @@ export default function () {
   }
 
 
-
   return <TablePro ref={actionRef} title='列表' url={MESSAGE_PAGE} columns={columns} toolBarRender={() => [
-    <Button type="primary" onClick={() => {setRaw({})
-      formRef.current.toggle()}}>
+    <Button type="primary" onClick={() => {
+      setRaw({})
+      formRef.current.toggle()
+    }}>
       新建
     </Button>
   ]}>
