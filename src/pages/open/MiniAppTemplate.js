@@ -31,25 +31,23 @@ export default function () {
       title: '创建时间',
       dataIndex: 'createTime',
       hideInSearch: true,
+      valueType: 'dateTime',
     },
     {
       title: '操作',
       dataIndex: 'templateId',
       hideInForm: true,
+      valueType: 'option',
       hideInSearch: true,
-      render: (templateId, row) => (
-        <>
-          <a onClick={() => {
-            setRaw(row)
-            formRef.current.toggle()
-          }}>设为体验版</a>
-          <Divider type="vertical"/>
-          <a onClick={() => {
-            Request(BUSI_APP_DEL_TEMPLATE, {templateId})
-            actionRef.current.reload()
-          }}>删除</a>
-        </>
-      ),
+      render: (_, row) => [
+        <a onClick={() => {
+          setRaw(row)
+          formRef.current.toggle()
+        }}>设为体验版</a>,
+        <a onClick={() => {
+          console.log(row)
+          Request(BUSI_APP_DEL_TEMPLATE, {templateId:row.templateId}).then(() => actionRef.current.reload())
+        }}>删除</a>],
     },
   ]
 
@@ -69,12 +67,17 @@ export default function () {
         title: '模板',
         dataIndex: 'templateId',
         formItemProps: {hidden: true}
+      },
+      {
+        title: '版本',
+        dataIndex: 'userVersion',
+        formItemProps: {hidden: true}
       }]} onSubmit={handleSubmit}/>
   </TablePro>
 }
 
 function MiniList({value, onChange}) {
-  const {data} = useQuery(MINI_APP_PAGE, () => Request(MINI_APP_PAGE,{miniType:2}).then(r => r.list.map(l => ({
+  const {data} = useQuery(MINI_APP_PAGE, () => Request(MINI_APP_PAGE, {miniType: 2}).then(r => r.list.map(l => ({
     value: l.appId,
     label: l.nickName,
   }))))

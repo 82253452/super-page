@@ -27,6 +27,7 @@ export default function () {
     }, {
       title: '创建时间',
       dataIndex: 'createTime',
+      valueType: 'date',
       hideInSearch: true,
     },
     {
@@ -34,11 +35,8 @@ export default function () {
       dataIndex: 'draftId',
       hideInForm: true,
       hideInSearch: true,
-      render: (draftId, row) => (
-        <>
-          <a onClick={() => Request(BUSI_APP_DRAFT_TEMPLATE, {draftId})}>添加</a>
-        </>
-      ),
+      valueType: 'option',
+      render: (_,row) => [<a onClick={() => Request(BUSI_APP_DRAFT_TEMPLATE, {draftId:row.draftId})}>添加</a>],
     },
   ]
 

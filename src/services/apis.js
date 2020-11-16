@@ -35,6 +35,8 @@ export const BUSI_APP_AUTH_URL = `/busiApp/getAuthUrl`
 export const MINI_APP_TRAFTS = `/mini/getTrafts`
 export const MINI_APP_TEMPLATES = `/mini/getTemplates`
 export const MINI_APP_UPLOAD = `/mini/uploadApp`
+export const MINI_APP_SUBMIT_APP = `/mini/submitWeapp`
+export const MINI_APP_ITEMLIST = `/mini/getItemList`
 
 export const TRANS_COMPANY_PAGE = `/trans/list`
 export const TRANS_COMPANY_DETAIL = `/trans/detail`
