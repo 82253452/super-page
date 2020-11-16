@@ -55,11 +55,6 @@ spec:
               servicePort: 80
             path: /
             pathType: ImplementationSpecific
-          - backend:
-              serviceName: mass
-              servicePort: 8080
-            path: /api
-            pathType: ImplementationSpecific
   tls:
     - secretName: super-page
 
