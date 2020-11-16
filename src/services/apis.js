@@ -28,6 +28,8 @@ export const BUSI_APP_DRAFT_TEMPLATE = `/busiApp/addtotemplate`
 export const BUSI_APP_TRAFTS = `/busiApp/gettemplatedraftlist`
 export const BUSI_APP_DEL_TEMPLATE = `/busiApp/deleteTemplate`
 export const BUSI_APP_QR_CODE = `/busiApp/getTestQrcode`
+export const BUSI_APP_AUTH_URL = `/busiApp/getAuthUrl`
+
 
 
 export const MINI_APP_TRAFTS = `/mini/getTrafts`

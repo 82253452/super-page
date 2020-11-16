@@ -1,6 +1,7 @@
 import TablePro from "@/components/TablePro/TablePro";
-import {COMMON_PAGE} from "@/services/apis";
-import {Divider, Image, Popover} from "antd";
+import {BUSI_APP_AUTH_URL, COMMON_PAGE} from "@/services/apis";
+import {Request} from "@/utils/utils";
+import {Button, Divider, Image, Popover} from "antd";
 import React, {useRef, useState} from "react";
 
 
@@ -46,8 +47,18 @@ export default function () {
     },
   ];
 
+  const toolBarRender = () =>
+    [
+      <Button type="primary" onClick={() => {
+        Request(BUSI_APP_AUTH_URL).then(r => window.open(r, '微信授权'))
+      }}>
+        授权
+      </Button>
+    ]
 
-  return <TablePro ref={actionRef} title='列表' url={COMMON_PAGE(SPACE)} columns={columns} param={{type: 2}}/>
+
+  return <TablePro ref={actionRef} title='列表' url={COMMON_PAGE(SPACE)} columns={columns} param={{type: 2}}
+                   toolBarRender={toolBarRender}/>
 }
 
 function QrCode({appId}) {
