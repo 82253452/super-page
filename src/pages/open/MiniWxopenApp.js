@@ -68,7 +68,7 @@ export default function () {
           <a onClick={() => {
             setRaw(raw)
             const d = JSON.parse(raw.messageParam)
-            d.time = moment(d.time)
+            d.time = moment(d.time, "HH:mm:ss")
             setData(d)
             formRef.current.toggle()
           }}>推送配置</a>
@@ -101,7 +101,7 @@ export default function () {
 }
 const SendConfig = forwardRef(({data, raw, onOk}, ref) => {
   const {data: column = []} = useQuery(COMMON_ALL('column'), () => Request(COMMON_ALL('column')))
-
+  console.log(data)
   const columns = [
     {
       title: 'appId',
@@ -140,7 +140,7 @@ const SendConfig = forwardRef(({data, raw, onOk}, ref) => {
     {
       title: '时间',
       dataIndex: 'time',
-      valueType: 'dateTime'
+      valueType: 'time'
     },
     {
       title: '小程序appId',
