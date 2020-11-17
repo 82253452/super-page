@@ -123,7 +123,6 @@ function QrCode({appId}) {
 
 
 const Submit = forwardRef(({tableRef, data}, ref) => {
-  console.log(data)
   const columns = [
     {
       title: '标题',

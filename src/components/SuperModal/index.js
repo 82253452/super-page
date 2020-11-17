@@ -1,8 +1,8 @@
-import {Modal} from "antd";
+import {Modal, Button} from "antd";
 import React, {forwardRef, useImperativeHandle} from "react";
 import {useToggle} from "react-use";
 
-export default forwardRef(({title,width, children,onOk}, ref) => {
+export default forwardRef(({title, width, children, onOk}, ref) => {
 
   const [on, toggle] = useToggle(false)
 
@@ -19,8 +19,8 @@ export default forwardRef(({title,width, children,onOk}, ref) => {
     }
   }))
 
-  function handleOk(){
-    onOk&&onOk()
+  function handleOk() {
+    onOk && onOk()
     toggle(!on)
   }
 
@@ -30,7 +30,14 @@ export default forwardRef(({title,width, children,onOk}, ref) => {
     visible={on}
     onOk={handleOk}
     onCancel={() => toggle(false)}
-    footer={null}
+    footer={onOk ? [
+      <Button key="back" onClick={() => toggle(false)}>
+        取消
+      </Button>,
+      <Button key="submit" type="primary" onClick={handleOk}>
+        确定
+      </Button>,
+    ] : null}
     width={width}
   >
     {children}
