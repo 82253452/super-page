@@ -40,6 +40,8 @@ export default function () {
     {
       title: '头条',
       dataIndex: 'isTop',
+      hideInForm: true,
+      hideInSearch: true,
       render: (key, row) => <Switch checked={key === 1} onChange={() => handleOnChange(row)}/>
     },
     {
@@ -101,6 +103,7 @@ export default function () {
     {
       title: '状态',
       dataIndex: 'del',
+      hideInSearch: true,
       valueEnum: stausEnum,
     },
     {

@@ -1,16 +1,14 @@
 import DelConfirm from '@/components/DelConfirm'
 import SuperForm from "@/components/SuperForm";
-import SuperModal from '@/components/SuperModal'
 import TablePro from "@/components/TablePro/TablePro";
 
 import {COMMON_ALL, COMMON_DEL, COMMON_PAGE, COMMON_UPDATE} from "@/services/apis";
 import {Request} from "@/utils/utils";
 import {DownOutlined,} from '@ant-design/icons';
-import {Button, Col, DatePicker, Divider, Dropdown, Form, Input, Menu, Row, Select, Switch, Tag} from "antd";
+import {Button, Divider, Dropdown, Menu, Select, Switch, Tag} from "antd";
 import moment from "moment";
 import React, {forwardRef, useRef, useState} from "react";
 import {useQuery} from "react-query";
-import {useUpdateEffect} from "react-use";
 
 export default function () {
 
@@ -54,6 +52,13 @@ export default function () {
       copyable: true,
     },
     {
+      title: '素材',
+      dataIndex: 'autoMessage',
+      hideInForm: true,
+      hideInSearch: true,
+      render: (key, row) => <Switch checked={key === 1} onChange={() => handleOnChange(row)}/>
+    },
+    {
       title: '操作',
       dataIndex: 'id',
       hideInForm: true,
@@ -74,6 +79,12 @@ export default function () {
     },
   ]
 
+  async function handleOnChange(row) {
+    row.autoMessage = row.autoMessage === 1 ? 0 : 1
+    await Request(COMMON_UPDATE(SPACE), row)
+    actionRef.current.reload()
+  }
+
 
   async function del(id) {
     await Request(COMMON_DEL(SPACE, id))
@@ -88,10 +99,15 @@ export default function () {
     <SendConfig ref={formRef} raw={raw} data={data} onOk={handleOk}/>
   </TablePro>
 }
-const SendConfig = forwardRef(({data,raw, onOk}, ref) => {
+const SendConfig = forwardRef(({data, raw, onOk}, ref) => {
   const {data: column = []} = useQuery(COMMON_ALL('column'), () => Request(COMMON_ALL('column')))
 
   const columns = [
+    {
+      title: 'appId',
+      dataIndex: 'appId',
+      formItemProps: {hidden: true}
+    },
     {
       title: '栏目',
       dataIndex: 'column',
