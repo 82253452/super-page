@@ -3,7 +3,6 @@ import ProTable from "@ant-design/pro-table";
 import React, {forwardRef, useRef} from "react";
 
 export default forwardRef(({title, columns, value, onSubmit}, ref) => {
-
   return <SuperModal ref={ref} title={title}>
     <ProTable
       form={{initialValues: value}}

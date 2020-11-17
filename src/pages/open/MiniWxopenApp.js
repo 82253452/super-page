@@ -1,4 +1,5 @@
 import DelConfirm from '@/components/DelConfirm'
+import SuperForm from "@/components/SuperForm";
 import SuperModal from '@/components/SuperModal'
 import TablePro from "@/components/TablePro/TablePro";
 
@@ -18,6 +19,7 @@ export default function () {
   const actionRef = useRef()
   const formRef = useRef()
   const [raw, setRaw] = useState()
+  const [data, setData] = useState()
 
   const columns = [
     {
@@ -60,6 +62,9 @@ export default function () {
         <>
           <a onClick={() => {
             setRaw(raw)
+            const d = JSON.parse(raw.messageParam)
+            d.time = moment(d.time)
+            setData(d)
             formRef.current.toggle()
           }}>推送配置</a>
           <Divider type="vertical"/>
@@ -80,99 +85,69 @@ export default function () {
   }
 
   return <TablePro ref={actionRef} title='列表' url={COMMON_PAGE(SPACE)} columns={columns} param={{type: 1}}>
-    <SendConfig ref={formRef} raw={raw} onOk={handleOk}/>
+    <SendConfig ref={formRef} raw={raw} data={data} onOk={handleOk}/>
   </TablePro>
 }
-const SendConfig = forwardRef(({raw, onOk}, ref) => {
-  const formRef = useRef()
+const SendConfig = forwardRef(({data,raw, onOk}, ref) => {
   const {data: column = []} = useQuery(COMMON_ALL('column'), () => Request(COMMON_ALL('column')))
 
-  const [data = {}, setData] = useState()
+  const columns = [
+    {
+      title: '栏目',
+      dataIndex: 'column',
+      renderFormItem: () => <Select>
+        {column && column.map(c => <Select.Option value={c.code}>{c.title}</Select.Option>)}
+      </Select>,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '必填字段',
+          },
+        ],
+      },
+    },
+    {
+      title: '留言',
+      dataIndex: 'comment',
+      renderFormItem: () => <ColumnSwitch/>,
+    },
+    {
+      title: '发布',
+      dataIndex: 'isPush',
+      renderFormItem: () => <ColumnSwitch/>,
+    },
+    {
+      title: '原文链接',
+      dataIndex: 'url',
+    },
+    {
+      title: '时间',
+      dataIndex: 'time',
+      valueType: 'dateTime'
+    },
+    {
+      title: '小程序appId',
+      dataIndex: 'miniAppId',
+    },
+    {
+      title: '小程序路径',
+      dataIndex: 'miniAppPath',
+    },
+    {
+      title: '图文列表',
+      dataIndex: 'types',
+      renderFormItem: () => <TagSelect/>,
+    },
+  ];
 
-  useUpdateEffect(() => {
-    const d = JSON.parse(raw.messageParam)
-    d.time = moment(d.time)
-    setData(d)
-  }, [raw])
-
-  async function handleOk() {
-    formRef.current.submit()
-    toggle()
-  }
-
-  async function submit(values) {
+  async function handleSubmit(values) {
     raw.messageParam = JSON.stringify(values)
     await Request(COMMON_UPDATE('openApp'), raw)
     onOk && onOk()
-    toggle()
   }
 
-  return <SuperModal ref={ref} title='推送配置' onOk={handleOk}>
-    <Form
-      ref={formRef}
-      name="basic"
-      onFinish={submit}
-      initialValues={data}
-    >
-      <Form.Item
-        label="栏目"
-        name="column"
-        rules={[{required: true, message: '请选择栏目!'}]}
-      >
-        <Select>
-          {column && column.map(c => <Select.Option value={c.code}>{c.title}</Select.Option>)}
-        </Select>
-      </Form.Item>
-      <Row>
-        <Col span={12}><Form.Item
-          label="留言"
-          name="comment"
-          valuePropName="checked"
-        >
-          <Switch/>
-        </Form.Item></Col>
-        <Col span={12}>
-          <Form.Item
-            label="发布"
-            name="isPush"
-            valuePropName="checked"
-          >
-            <Switch/>
-          </Form.Item>
-        </Col>
-      </Row>
-      <Form.Item
-        label="原文链接"
-        name="url"
-      >
-        <Input/>
-      </Form.Item>
-      <Form.Item
-        label="时间"
-        name="time"
-      >
-        <DatePicker showTime format='YYYY/MM/DD HH:mm:ss'/>
-      </Form.Item>
-      <Form.Item
-        label="小程序appId"
-        name="miniAppId"
-      >
-        <Input/>
-      </Form.Item>
-      <Form.Item
-        label="小程序路径"
-        name="miniAppPath"
-      >
-        <Input/>
-      </Form.Item>
-      <Form.Item
-        label="图文列表"
-        name="types"
-      >
-        <TagSelect/>
-      </Form.Item>
-    </Form>
-  </SuperModal>
+  return <SuperForm ref={ref} title='推送配置' value={data} columns={columns} onSubmit={handleSubmit}/>
 })
 
 function TagSelect({value = '', onChange}) {
@@ -215,4 +190,15 @@ function TagSelect({value = '', onChange}) {
     </div>
 
   )
+}
+
+function ColumnSwitch({value = false, onChange}) {
+  const [check, setCheck] = useState(value)
+
+  function handleChange() {
+    onChange && onChange(!check)
+    setCheck(!check)
+  }
+
+  return <Switch checked={check} onChange={handleChange}/>
 }
